@@ -1,10 +1,10 @@
 <?php
 
-namespace App\LockerStorage;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Folder extends Model
+class SchoolUser extends Model
 {
     protected $guarded = [];
 }

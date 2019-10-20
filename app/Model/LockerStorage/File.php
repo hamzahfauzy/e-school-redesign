@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LockerStorage;
+namespace App\Model\LockerStorage;
 
 use Illuminate\Database\Eloquent\Model;
 

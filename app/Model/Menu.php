@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SchoolUser extends Model
+class Menu extends Model
 {
     protected $guarded = [];
 }

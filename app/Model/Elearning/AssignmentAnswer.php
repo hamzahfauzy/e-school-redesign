@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Elearning;
+namespace App\Model\Elearning;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Announcement extends Model
+class AssignmentAnswer extends Model
 {
     protected $guarded = [];
 }
