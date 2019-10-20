@@ -53,6 +53,14 @@ html, body, #app {
 	z-index: 1;
 }
 
+.z-techno-navbar button.navbar-toggler {
+	border:0px;
+}
+
+.z-techno-navbar i.fa.fa-bars {
+	color: #FFF;
+}
+
 .z-techno-navbar a.navbar-brand, .z-techno-navbar .navbar-nav a.nav-link {
     color: #FFF !important;
 }
@@ -65,9 +73,13 @@ main {
 
 .content-container {
 	padding-top: 20px;
-	padding-left: 20px;
 	margin-left: 280px;
 	transition: margin-left 0.5s ease 0s;
+}
+
+.content-wrapper {
+	padding: 20px;
+	background: #FFF;
 }
 
 @media only screen and (max-width: 786px) {
@@ -77,6 +89,5 @@ main {
 
 	.content-container {
 		margin-left: 0px;
-		padding-left: 10px;
 	}
 }

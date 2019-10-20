@@ -5,7 +5,7 @@
 		        <a href="#"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 		    </li>
 		    <li>
-		        <a href="#"><i class="fa fa-archive fa-fw"></i> Products</a>
+		        <a href="{{route('product.index')}}"><i class="fa fa-archive fa-fw"></i> Products</a>
 		    </li>
 		    <li>
 		        <a href="#"><i class="fa fa-user fa-fw"></i> Customers</a>
