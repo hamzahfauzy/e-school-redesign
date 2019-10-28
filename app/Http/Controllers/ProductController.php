@@ -12,11 +12,7 @@ class ProductController extends Controller
     {
         $this->product = new Product;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -25,23 +21,11 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('product.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
@@ -58,48 +42,46 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with(['success' => 'Create product success']);;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $product = $this->product->find($id);
+        if($product){
+            return view('product.edit', [
+                'product' => $product,
+            ]);            
+        }else{
+            return redirect()->route('product.create')->with(['danger' => 'Product is not found, you can create a new Product here']);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'price' => 'required',
+            'unit' => 'required',
+            'unit_value' => 'required',
+        ]);
+
+        $product = $this->product->find($id);
+        $product->name = $request->input('name'); 
+        $product->price = $request->input('price'); 
+        $product->unit = $request->input('unit'); 
+        $product->unit_value = $request->input('unit_value'); 
+        $product->save();
+        return redirect()->route('product.index')->with(['success' => 'Data has updated !']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $product = $this->product->find($id);
+        $p = $product;
+        $product->delete();
+        return redirect()->route('product.index')->with(['success' => 'Product "'.$p->name.'" has deleted !']);
     }
 }

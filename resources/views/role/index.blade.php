@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-12">
         	<div class="content-wrapper">
-	            <h2>Products</h2>
+	            <h2>Roles</h2>
 	            <p>
-	            	<a href="{{route('product.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create</a>
+	            	<a href="{{route('role.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create</a>
 	            </p>
 	            @if ($message = Session::get('success'))
 			      <div class="alert alert-success alert-block">
@@ -19,37 +19,33 @@
 	            	<table class="table table-striped">
 	            		<tr>
 	            			<th>#</th>
-	            			<th>Name</th>
-	            			<th>Price</th>
-	            			<th>Unit</th>
-	            			<th>Unit Value</th>
+	            			<th>Roles Name</th>
+	            			<th>Descriptions</th>
 	            			<th></th>
 	            		</tr>
-	            		@if(empty($products) || count($products) == 0)
+	            		@if(empty($roles) || count($roles) == 0)
 	            		<tr>
 	            			<td colspan="3"><i>Data not found!</i></td>
 	            		</tr>
 	            		@endif
 
-	            		@foreach($products as $key => $product)
+	            		@foreach($roles as $key => $role)
 	            		<tr>
 	            			<td align="center">{{++$key}}</td>
-	            			<td>{{$product->name}}</td>
-	            			<td>@rupiah($product->price)</td>
-	            			<td>{{$product->unit}}</td>
-	            			<td>{{$product->unit_value}}</td>
+	            			<td>{{$role->name}}</td>
+	            			<td><small>{{$role->description}}</small></td>
 	            			<td>
-	            				<form method="POST" action="{{route('product.delete', $product->id)}}">
+	            				<form method="POST" action="{{route('role.delete', $role->id)}}">
 								    {{ csrf_field() }}
 								    {{ method_field('DELETE') }}
-		            				<a href="{{route('product.edit', $product->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
+		            				<a href="{{route('role.edit', $role->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
 								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
 								</form>
 	            			</td>
 	            		</tr>
 	            		@endforeach
 	            	</table>
-	            	{{$products->links()}}
+	            	{{$roles->links()}}
 	            </div>
 	        </div>
         </div>

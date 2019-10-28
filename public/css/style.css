@@ -81,6 +81,93 @@ main {
 	padding: 20px;
 	background: #FFF;
 }
+.content-wrapper h2{
+	margin-bottom: 28px;
+	border-bottom: 1px solid rgba(200,200,200,.4);
+	padding-bottom: 12px;
+}
+.table{
+	font-size: 14px;
+}
+
+/* Button Class*/
+.btn{
+	font-weight:600;
+}
+.btn-xs{
+	padding: 2px 8px;
+	font-size: 12px;
+}
+.btn-primary{
+	background: #ff7e1c;
+	border:1px solid #ff7e1c;
+}
+.btn-primary:hover{
+	background: #db650b;
+	border:1px solid #db650b;
+}
+.btn-primary:focus{
+	background: #000;
+	border:1px solid #000;
+}
+.btn-third{
+	background: #3df294;
+	border:1px solid #3df294;
+	color: white;
+}
+.btn-third:hover{
+	background: #25c270;
+	border:1px solid #25c270;
+	color: white;
+}
+
+.btn-success{
+	background: #222;
+	border:1px solid #222;
+}
+.btn-success:hover{
+	background: #000;
+	border:1px solid #000;
+	color: #ff7e1c;
+}
+.btn-success:focus{
+	background: #000;
+	border:1px solid #000;
+}
+.btn-info{
+	background: #009fd4;
+	border:1px solid #009fd4;
+	color: white;
+}
+.btn-info:hover{
+	background: #007ca6;
+	border:1px solid #007ca6;
+}
+.btn-info:focus{
+	background: #000;
+	border:1px solid #000;
+}
+.btn-danger{
+	background: #ff3103;
+	border:1px solid #ff3103;
+}
+.btn-danger:hover{
+	background: #d92800;
+	border:1px solid #d92800;
+}
+.page-link{
+	padding: 4px 12px;
+	color: #ff7e1c;
+}
+.page-link:hover{
+	color: #f06700;
+}
+.page-item.active .page-link{
+	border: 1px solid #eee;
+	color: #f06700;
+	background: #eee;
+}
+
 
 @media only screen and (max-width: 786px) {
 	.left-sidebar-section {

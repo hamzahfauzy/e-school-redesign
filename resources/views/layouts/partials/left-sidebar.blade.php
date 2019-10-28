@@ -8,16 +8,16 @@
 		        <a href="{{route('product.index')}}"><i class="fa fa-archive fa-fw"></i> Products</a>
 		    </li>
 		    <li>
-		        <a href="#"><i class="fa fa-user fa-fw"></i> Customers</a>
+		        <a href="{{route('customer.index')}}"><i class="fa fa-user fa-fw"></i> Customers</a>
 		    </li>
 		    <li>
-		        <a href="#"><i class="fa fa-paypal fa-fw"></i> Payments</a>
+		        <a href="{{route('payment.index')}}"><i class="fa fa-paypal fa-fw"></i> Payments</a>
 		    </li>
 		    <li>
-		        <a href="#"><i class="fa fa-users fa-fw"></i> Users</a>
+		        <a href="{{route('user.index')}}"><i class="fa fa-users fa-fw"></i> Users</a>
 		    </li>
 		    <li>
-		        <a href="#"><i class="fa fa-vcard fa-fw"></i> Role</a>
+		        <a href="{{route('role.index')}}"><i class="fa fa-vcard fa-fw"></i> Role</a>
 		    </li>
 		    <li>
 		    	<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
