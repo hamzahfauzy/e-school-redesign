@@ -3,6 +3,7 @@
 namespace App\Model\InformationSystem;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Classroom extends Model
 {
@@ -12,11 +13,11 @@ class Classroom extends Model
         return $this->belongsTo(Major::class);
     }
 
-    public function employee(){
-        return $this->belongsTo(Employee::class);
+    public function students(){
+        return $this->belongsToMany(User::class,'classroom_student');
     }
 
-    public function students(){
-        return $this->belongsToMany(Student::class);
+    public function teacher(){
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

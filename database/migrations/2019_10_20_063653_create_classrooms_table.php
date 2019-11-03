@@ -18,11 +18,11 @@ class CreateClassroomsTable extends Migration
             $table->bigInteger('school_id')->unsigned();
             $table->string('name');
             $table->bigInteger('major_id')->unsigned();
-            $table->bigInteger('employee_id')->unsigned()->nullable();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('major_id')->references('id')->on('majors')->onDelete('cascade');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('school_id')->references('id')->on('school_profiles')->onDelete('cascade');
         });
     }

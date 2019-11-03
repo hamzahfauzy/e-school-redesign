@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 03, 2019 at 02:49 PM
+-- Generation Time: Nov 03, 2019 at 08:50 PM
 -- Server version: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.19-0ubuntu0.18.04.2
 
@@ -49,7 +49,8 @@ INSERT INTO `roles` (`id`, `name`, `slug`, `description`, `created_at`, `updated
 (10, 'Administrasi Sarana dan Prasarana', 'admin_sarana_prasarana', 'administrasi sarana dan prasarana', '2019-11-02 00:51:37', '2019-11-02 09:20:45'),
 (11, 'Administrasi Humas', 'admin_humas', 'administrasi humas', '2019-11-02 00:51:51', '2019-11-02 09:20:53'),
 (13, 'Administrator', 'admin', 'administrator', '2019-11-02 01:41:40', '2019-11-02 01:41:40'),
-(14, 'Administrasi Kurikulum', 'admin_kurikulum', 'admin kurikulum', '2019-11-02 09:32:30', '2019-11-02 09:32:30');
+(14, 'Administrasi Kurikulum', 'admin_kurikulum', 'admin kurikulum', '2019-11-02 09:32:30', '2019-11-02 09:32:30'),
+(15, 'Wali Kelas', 'wali_kelas', 'wali kelas', '2019-11-03 06:06:32', '2019-11-03 06:06:32');
 
 --
 -- Indexes for dumped tables
@@ -69,7 +70,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

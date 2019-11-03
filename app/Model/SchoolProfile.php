@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Model\Role;
-use App\Model\InformationSystem\{Study,Major};
+use App\Model\InformationSystem\{Study,Major,Classroom};
 
 class SchoolProfile extends Model
 {
@@ -48,6 +48,6 @@ class SchoolProfile extends Model
 
     public function classrooms()
     {
-        return $this->hasMany(Major::class,'school_id','id');
+        return $this->hasMany(Classroom::class,'school_id','id');
     }
 }

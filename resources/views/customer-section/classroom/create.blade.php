@@ -14,7 +14,7 @@
                   </div>
                 @endif
 
-	            <form method="post" action="{{route('sistem-informasi.studies.store')}}">
+	            <form method="post" action="{{route('sistem-informasi.classrooms.store')}}">
 	            	{{csrf_field()}}
                     <div class="form-group">
                         <label>Nama</label>
@@ -28,9 +28,9 @@
                     <div class="form-group">
                         <label>Jurusan</label>
                         <select class="form-control z-techno-el @error('major') is-invalid @enderror" name="major">
-                            <option value="">!-- Pilih Jurusan --</option>
+                            <option value="">-- Pilih Jurusan --</option>
                             @foreach($majors as $major)
-                                <option value="{{ $major->id }}">{{ $major->name }}</option>
+                                <option value="{{ $major->id }}" {{old('major') == $major->id ? 'selected' : ''}}>{{ $major->name }}</option>
                             @endforeach
                         </select>
                         @error('major')
@@ -40,11 +40,11 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Guru</label>
+                        <label>Wali Kelas</label>
                         <select class="form-control z-techno-el @error('teacher') is-invalid @enderror" name="teacher">
-                            <option value="">!-- Pilih Guru --</option>
+                            <option value="">-- Pilih Guru --</option>
                             @foreach($teachers as $teacher)
-                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                <option value="{{ $teacher->id }}" {{old('teacher') == $teacher->id ? 'selected' : ''}}>{{ $teacher->name }}</option>
                             @endforeach
                         </select>
                         @error('teacher')

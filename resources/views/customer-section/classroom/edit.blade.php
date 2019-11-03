@@ -1,12 +1,12 @@
 @extends('layouts.dashboard')
-@section('sistem-informasi.studies.index','sidebar-active')
+@section('sistem-informasi.classrooms.index','sidebar-active')
 
 @section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-        	<div class="content-wrapper">
-	            <h2>Edit Mata Pelajaran</h2>
+            <div class="content-wrapper">
+                <h2>Edit Kelas</h2>
                 @if ($message = Session::get('danger'))
                   <div class="alert alert-danger alert-block">
                     <button type="button" class="close" data-dismiss="alert">×</button> 
@@ -14,24 +14,51 @@
                   </div>
                 @endif
 
-	            <form method="post" action="{{route('sistem-informasi.studies.update',$study->id)}}">
-	            	{{csrf_field()}}
+                <form method="post" action="{{route('sistem-informasi.classrooms.update',$classroom->id)}}">
+                    {{csrf_field()}}
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" class="form-control z-techno-el @error('name') is-invalid @enderror" name="name" value="{{ old('name') ? old('name') : $study->name }}" placeholder="Masukkan Nama Mata Pelajaran">
-
+                        <input type="text" class="form-control z-techno-el @error('name') is-invalid @enderror" name="name" value="{{ old('name') ? old('name') : $classroom->name }}" placeholder="Masukkan Nama Kelas">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label>Jurusan</label>
+                        <select class="form-control z-techno-el @error('major') is-invalid @enderror" name="major">
+                            <option value="">-- Pilih Jurusan --</option>
+                            @foreach($majors as $major)
+                                <option value="{{ $major->id }}" {{$classroom->major_id == $major->id ? 'selected' : ''}}>{{ $major->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('major')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label>Wali Kelas</label>
+                        <select class="form-control z-techno-el @error('teacher') is-invalid @enderror" name="teacher">
+                            <option value="">-- Pilih Guru --</option>
+                            @foreach($teachers as $teacher)
+                                <option value="{{ $teacher->id }}" {{$classroom->user_id == $teacher->id ? 'selected' : ''}}>{{ $teacher->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('teacher')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
-	            	<button class="btn z-techno-btn z-techno-primary">Submit</button>
-	            	<a href="{{route('sistem-informasi.studies.index')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Back</a>
-	            </form>
-	        </div>
+                    <button class="btn z-techno-btn z-techno-primary">Submit</button>
+                    <a href="{{route('sistem-informasi.classrooms.index')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Back</a>
+                </form>
+            </div>
         </div>
     </div>
 </div>

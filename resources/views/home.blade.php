@@ -10,8 +10,13 @@
             	<form method="post" class="form-posts">
             		<div class="form-group posts-group">
             			<textarea class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
+                              <div class="z-techno-btn-group">
+                                    <button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
+                                    <button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
+                              </div>
             			<select class="form-control z-techno-el select2" name="post_for">
-            				<option value="1">Semua Orang</option>
+            				<option value="0">Catatan Pribadi</option>
+                                    <option value="1">Semua Orang</option>
             				<option value="2">X TKJ 1</option>
             			</select>
             		</div>
@@ -28,17 +33,17 @@
             				<button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
             				<button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
             			</div>
-            			<select class="form-control z-techno-el select2" name="post_for">
-            				<option value="">Bagikan Ke...</option>
-            				<option value="1">Semua Orang</option>
-            				<option value="2">X TKJ 1</option>
+            			<select class="form-control z-techno-el select2" onchange=" postType.style.display = 'none'; if(this.value != 1) postType.style.display = 'block'" name="post_for">
+            				<option value="">Bagikan Sebagai</option>
+            				<option value="1">Catatan Pribadi</option>
+            				<option value="2">Pengumuman</option>
+                                    <option value="3">Tugas</option>
+                                    <option value="4">Materi</option>
             			</select>
-            			<select class="form-control z-techno-el select2" name="post_for">
-            				<option value="">Sebagai...</option>
-            				<option value="1">Pengumuman</option>
-            				<option value="2">Tugas</option>
-            				<option value="3">Sesi Ujian</option>
-            				<option value="4">Sesi Kelas Virtual</option>
+            			<select class="form-control z-techno-el select2" id="postType" name="post_for" style="display: none;">
+            				<option value="">X TKJ 1</option>
+                                    <option value="">X TKJ 2</option>
+                                    <option value="">X TKJ 3</option>
             			</select>
             			<div style="display: none">
             				<input type="file" name="file" id="fileUploadPost" onchange="fileUploadPostBtn.innerHTML = '1 File Terpilih'">
@@ -82,7 +87,8 @@
             	<div class="post-meta">
             		<button class="btn z-techno-btn z-techno-primary">Jawab Tugas</button>
             		<button class="btn z-techno-btn z-techno-primary">Ikuti Kelas</button>
-            		<button class="btn z-techno-btn z-techno-primary">Ikuti Ujian</button>
+            		<button class="btn z-techno-btn z-techno-primary">Ikuti Kuis</button>
+                        <button class="btn z-techno-btn z-techno-primary">Ikuti Ujian</button>
             	</div>
             </div>
             <br>

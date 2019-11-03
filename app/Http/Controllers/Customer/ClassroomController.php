@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Model\InformationSystem\Classroom;
 use App\Model\InformationSystem\Major;
+use App\User;
 
 class ClassroomController extends Controller
 {
@@ -24,11 +25,19 @@ class ClassroomController extends Controller
             'classrooms' => $classrooms
         ]);
     }
+
     public function create()
     {   
         $majors = auth()->user()->customer->school->majors;
         $teachers = auth()->user()->customer->school->teachers();
         return view('customer-section.classroom.create', ["majors"=>$majors, "teachers"=>$teachers]);
+    }
+
+    public function studentCreate($id)
+    {   
+        $classroom = auth()->user()->customer->school->classrooms()->find($id);
+        $students = auth()->user()->customer->school->students();
+        return view('customer-section.classroom.student-create', ["classroom"=>$classroom, "students"=>$students]);
     }
 
     public function store(Request $request)
@@ -43,26 +52,48 @@ class ClassroomController extends Controller
             'school_id'=>auth()->user()->customer->school->id,
             'name' => $request->name,
             'major_id' => $request->major,
-            'employee_id' => $request->teacher,
+            'user_id' => $request->teacher,
         ]);
 
         return redirect()->route('sistem-informasi.classrooms.index')->with(['success' => 'Kelas berhasil ditambahkan']);
     }
 
+    public function storeStudent(Request $request)
+    {
+        $this->validate($request,[
+            'student' => 'required',
+            'classroom_id' => 'required',
+        ]);
+
+        $user = User::find($request->student);
+        $classroom = auth()->user()->customer->school->classrooms()->find($request->classroom_id)->students()->attach($user);
+
+        return redirect()->route('sistem-informasi.classrooms.show',$request->classroom_id)->with(['success' => 'Siswa berhasil ditambahkan']);
+    }
+
     public function show($id)
     {
-        //
+        $classroom = auth()->user()->customer->school->classrooms()->find($id);
+        $students = $classroom->students()->paginate(10);
+        return view('customer-section.classroom.show',[
+            'classroom' => $classroom,
+            'students' => $students
+        ]);
     }
 
     public function edit($id)
     {
-        $user = auth()->user()->customer->school->classrooms()->find($id);
-        if($user){
-            return view('user.edit', [
-                'user' => $user,
+        $majors = auth()->user()->customer->school->majors;
+        $teachers = auth()->user()->customer->school->teachers();
+        $classroom = auth()->user()->customer->school->classrooms()->find($id);
+        if($classroom){
+            return view('customer-section.classroom.edit', [
+                'classroom' => $classroom,
+                "majors"=>$majors, 
+                "teachers"=>$teachers
             ]);            
         }else{
-            return redirect()->route('user.create')->with(['danger' => 'User is not found, you can create a new User here']);
+            return redirect()->route('sistem-informasi.classrooms.create')->with(['danger' => 'User is not found, you can create a new User here']);
         }
     }
 
@@ -80,33 +111,21 @@ class ClassroomController extends Controller
         $user->password = Hash::make($request->password);
 
         if($user->save()){
-            return redirect()->route('user.index')->with(['success' => 'User has updated']);
-        }
-    }
-    public function inactive($id){
-        return $this->change($id, 0, "In Active");
-    }
-    public function active($id){
-        return $this->change($id, 1, "Active");
-    }
-    function change($id, $status, $des)
-    {
-        $user = $this->user->find($id);
-        if($user){
-            $user->status = $status; 
-            if($user->save()){
-                return redirect()->route('user.index')->with(['success' => '"'.$user->name.'" has been '.$des.'.']);
-            }
-        }else{
-            return redirect()->route('user.index')->with(['success' => 'Sorry, Customer not found!']);
+            return redirect()->route('sistem-informasi.classrooms.index')->with(['success' => 'Kelas telah di update']);
         }
     }
 
     public function destroy($id)
     {
-        $user = $this->user->find($id);
-        $u = $user;
-        $user->delete();
-        return redirect()->route('user.index')->with(['success' => 'User "'.$user->name.'" has deleted !']);
+        $classroom = auth()->user()->customer->school->classrooms()->find($id);
+        $classroom->delete();
+        return redirect()->route('sistem-informasi.classrooms.index')->with(['success' => 'Kelas berhasil di hapus']);
+    }
+
+    public function destroyStudent($id, $user_id)
+    {
+        $classroom = auth()->user()->customer->school->classrooms()->find($id);
+        $classroom->students()->detach($user_id);
+        return redirect()->route('sistem-informasi.classrooms.show',$id)->with(['success' => 'Siswa berhasil di hapus dari kelas!']);
     }
 }

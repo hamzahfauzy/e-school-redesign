@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::middleware(['auth','checkActive'])->group(function(){
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/chats','HomeController@index')->name('chats.index');
 	Route::middleware('role:admin')->prefix('admin')->group(function(){
 		Route::prefix('products')->group(function(){
 			Route::get('/','ProductController@index')->name('product.index');
@@ -121,25 +122,35 @@ Route::middleware(['auth','checkActive'])->group(function(){
 			Route::get('/','ClassroomController@index')->name('index');
 			Route::get('create','ClassroomController@create')->name('create');
 			Route::get('edit/{id}','ClassroomController@edit')->name('edit');
+			Route::get('show/{id}','ClassroomController@show')->name('show');
+			Route::get('show/{id}/create','ClassroomController@studentCreate')->name('students.create');
+			Route::post('store-student','ClassroomController@storeStudent')->name('students.store');
 			Route::post('store','ClassroomController@store')->name('store');
 			Route::post('update/{id}','ClassroomController@update')->name('update');
 			Route::delete('delete/{id}','ClassroomController@destroy')->name('delete');
+			Route::delete('delete/{id}/student/{user_id}','ClassroomController@destroyStudent')->name('students.delete');
 		});
 	});
 
-	Route::middleware('role:siswa')->prefix('siswa')->namespace('Student')->name('students.')->group(function(){
-		Route::get('/chats','HomeController@index')->name('chats.index');
+	Route::middleware('role:siswa')->prefix('student')->namespace('Student')->name('students.')->group(function(){
 		Route::get('/exams','HomeController@index')->name('exams.index');
 		Route::get('/assignments','HomeController@index')->name('assignments.index');
 		Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
 	});
 
-	Route::middleware('role:guru')->prefix('guru')->namespace('Teacher')->name('teachers.')->group(function(){
-		Route::get('/chats','HomeController@index')->name('chats.index');
+	Route::middleware('role:guru')->prefix('teacher')->namespace('Teacher')->name('teachers.')->group(function(){
 		Route::get('/questions','HomeController@index')->name('questions.index');
 		Route::get('/exams','HomeController@index')->name('exams.index');
 		Route::get('/assignments','HomeController@index')->name('assignments.index');
+		Route::get('/assessments','HomeController@index')->name('assessments.index');
 		Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
+	});
+
+	Route::middleware('role:wali_kelas')->prefix('counselor')->namespace('Counselor')->name('counselors.')->group(function(){
+		Route::get('/students','HomeController@index')->name('students.index');
+		Route::get('/questions','HomeController@index')->name('assessments.index');
+		Route::get('/exams','HomeController@index')->name('absences.index');
+		Route::get('/assignments','HomeController@index')->name('reports.index');
 	});
 
 
