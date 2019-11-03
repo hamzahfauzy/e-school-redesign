@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -20,6 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <div id="app">
@@ -37,30 +35,34 @@
             </div>
         </main>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js" defer=""></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript">
     function toggleLeftSidebar(){
         $('.left-sidebar-section').toggleClass('toggle-sidebar')
     }
-    $(".search-field").keyup(function(){
-        var searchVal = $(this).val().toLowerCase();
-        if(searchVal == "")
-        {
-            $('.search-row').show()
-        }
-        else
-        {
-            $('.search-row').hide()
-            $('.search-row').each(function( index ) {
-                var username = $(this).data("username").toString().toLowerCase();
-                if(username.indexOf(searchVal) != -1)
-                {
-                    $(this).show()
-                }
-            });
-        }
+    $(document).ready(function() {
+        $('select.select2').select2();
+        $(".search-field").keyup(function(){
+            var searchVal = $(this).val().toLowerCase();
+            if(searchVal == "")
+            {
+                $('.search-row').show()
+            }
+            else
+            {
+                $('.search-row').hide()
+                $('.search-row').each(function( index ) {
+                    var username = $(this).data("username").toString().toLowerCase();
+                    if(username.indexOf(searchVal) != -1)
+                    {
+                        $(this).show()
+                    }
+                });
+            }
+        });
     });
     </script>
 </body>

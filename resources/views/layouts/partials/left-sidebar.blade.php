@@ -6,7 +6,7 @@
 				Administrator Menu
 			</li>
 		    <li>
-		        <a href="#"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+		        <a href="{{url('/home')}}"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 		    </li>
 		    <li>
 		        <a href="{{route('product.index')}}" class="@yield('admin-products')"><i class="fa fa-archive fa-fw"></i> Products</a>
@@ -59,13 +59,15 @@
 				Sistem Informasi Menu
 			</li>
 		    <li>
-		        <a href="#"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+		        <a href="{{url('/home')}}"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 		    </li>
-		    @foreach(auth()->user()->isRole('admin_sistem_informasi')->menus()->orderby('ordered_number','asc')->get() as $menu)
+		    	@if(auth()->user()->isRole('admin_sistem_informasi')->menus)
+		    		@foreach(auth()->user()->isRole('admin_sistem_informasi')->menus()->orderby('ordered_number','asc')->get() as $menu)
 		    <li>
 		        <a href="{{route($menu->route)}}" class="@yield($menu->route)"><i class="fa fa-list fa-fw"></i> {{$menu->name}}</a>
 		    </li>
-		    @endforeach
+		    		@endforeach
+		    	@endif
 		    @endif
 
 		    @if(auth()->user()->isRole('siswa'))
@@ -75,11 +77,29 @@
 		    <li>
 		        <a href="/home"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 		    </li>
-		    @foreach(auth()->user()->isRole('siswa')->menus()->orderby('ordered_number','asc')->get() as $menu)
+		    	@if(auth()->user()->isRole('siswa')->menus)
+		    		@foreach(auth()->user()->isRole('siswa')->menus()->orderby('ordered_number','asc')->get() as $menu)
 		    <li>
 		        <a href="{{route($menu->route)}}" class="@yield($menu->route)"><i class="fa fa-list fa-fw"></i> {{$menu->name}}</a>
 		    </li>
-		    @endforeach
+		    		@endforeach
+		    	@endif
+		    @endif
+
+		    @if(auth()->user()->isRole('guru'))
+		    <li class="menu-divider">
+				Guru Menu
+			</li>
+		    <li>
+		        <a href="/home"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+		    </li>
+		    	@if(auth()->user()->isRole('guru')->menus)
+		    		@foreach(auth()->user()->isRole('guru')->menus()->orderby('ordered_number','asc')->get() as $menu)
+		    <li>
+		        <a href="{{route($menu->route)}}" class="@yield($menu->route)"><i class="fa fa-list fa-fw"></i> {{$menu->name}}</a>
+		    </li>
+		    		@endforeach
+		    	@endif
 		    @endif
 
 		    <li class="menu-divider">
