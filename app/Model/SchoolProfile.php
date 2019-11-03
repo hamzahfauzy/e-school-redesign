@@ -45,4 +45,9 @@ class SchoolProfile extends Model
     {
         return $this->hasMany(Major::class,'school_id','id');
     }
+
+    public function classrooms()
+    {
+        return $this->hasMany(Major::class,'school_id','id');
+    }
 }
