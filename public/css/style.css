@@ -149,6 +149,55 @@ small.left-school-name {
     color: #FFF !important;
 }
 
+.form-posts textarea,.form-posts select {
+	border:none;
+}
+
+.form-posts select {
+	border-top:1px solid #eaeaea;
+}
+
+.form-posts .posts-group {
+	border:1px solid #eaeaea;
+}
+
+.z-techno-btn-group {
+	margin-left: 8px;
+	margin-top: -38px;
+	margin-bottom: 8px;
+	position: relative;
+}
+
+.z-techno-btn-float {
+	border:1px solid #130912;
+	color: #130912;
+}
+
+.author-section {
+	overflow: auto;
+}
+
+.author-picture {
+	float: left;
+	margin-right: 15px;
+}
+
+.author-picture img {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+}
+
+.author-name h4 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.post-section {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 main {
 	/*display: inline-block;*/
 	width: 100%;

@@ -127,8 +127,16 @@ Route::middleware(['auth','checkActive'])->group(function(){
 		});
 	});
 
-	Route::middleware('role:siswa')->prefix('siswa')->namespace('Siswa')->name('students.')->group(function(){
+	Route::middleware('role:siswa')->prefix('siswa')->namespace('Student')->name('students.')->group(function(){
 		Route::get('/chats','HomeController@index')->name('chats.index');
+		Route::get('/exams','HomeController@index')->name('exams.index');
+		Route::get('/assignments','HomeController@index')->name('assignments.index');
+		Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
+	});
+
+	Route::middleware('role:guru')->prefix('guru')->namespace('Teacher')->name('teachers.')->group(function(){
+		Route::get('/chats','HomeController@index')->name('chats.index');
+		Route::get('/questions','HomeController@index')->name('questions.index');
 		Route::get('/exams','HomeController@index')->name('exams.index');
 		Route::get('/assignments','HomeController@index')->name('assignments.index');
 		Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
