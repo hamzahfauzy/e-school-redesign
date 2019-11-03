@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','status','picture'
     ];
 
     /**
@@ -43,12 +43,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function isRole($role_name)
+    {
+        $roles = $this->roles()->where('slug',$role_name)->first();
+        return $roles;
+    }
+
     public function AauthAcessToken(){
         return $this->hasMany('\App\OauthAccessToken');
     }
 
     public function school(){
-        return $this->belongsToMany(SchoolProfile::class,'id');
+        return $this->belongsToMany(SchoolProfile::class,'school_users', 'user_id', 'school_id', 'id');
     }
 
     public function customer(){

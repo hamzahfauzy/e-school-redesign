@@ -67,6 +67,7 @@ class RoleController extends Controller
         $role = $this->role->find($id);
         $role->name = $request->input('name'); 
         $role->description = $request->input('description'); 
+        $role->slug = $request->input('slug'); 
         $role->save();
         return redirect()->route('role.index')->with(['success' => 'Data has updated !']);
     }

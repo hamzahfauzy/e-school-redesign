@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('admin-products','sidebar-active')
 
 @section('content')
 <div class="container-fluid">
@@ -7,7 +8,7 @@
         	<div class="content-wrapper">
 	            <h2>Products</h2>
 	            <p>
-	            	<a href="{{route('product.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create</a>
+	            	<a href="{{route('product.create')}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-plus"></i> Create</a>
 	            </p>
 	            @if ($message = Session::get('success'))
 			      <div class="alert alert-success alert-block">
@@ -42,8 +43,8 @@
 	            				<form method="POST" action="{{route('product.delete', $product->id)}}">
 								    {{ csrf_field() }}
 								    {{ method_field('DELETE') }}
-		            				<a href="{{route('product.edit', $product->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
-								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
+		            				<a href="{{route('product.edit', $product->id)}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-pencil"></i> Edit</a>
+								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn z-techno-btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
 								</form>
 	            			</td>
 	            		</tr>

@@ -18,6 +18,7 @@ class CreateMenusTable extends Migration
             $table->bigInteger('role_id')->unsigned();
             $table->string('name');
             $table->string('route');
+            $table->integer('ordered_number');
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');

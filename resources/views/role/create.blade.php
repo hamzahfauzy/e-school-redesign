@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('admin-roles','sidebar-active')
 
 @section('content')
 <div class="container-fluid">
@@ -17,7 +18,7 @@
 	            	{{csrf_field()}}
 	            	<div class="form-group">
 	            		<label>Role Name</label>
-	            		<input type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Enter Role Name">
+	            		<input type="text" class="form-control z-techno-el @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Enter Role Name">
 
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -25,9 +26,19 @@
                             </span>
                         @enderror
 	            	</div>
+                    <div class="form-group">
+                        <label>Slug</label>
+                        <input type="text" class="form-control z-techno-el @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug') }}" placeholder="Enter Slug">
+
+                        @error('slug')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 	            	<div class="form-group">
 	            		<label>Description</label>
-	            		<textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Enter Description">{{ old('description') }}</textarea>
+	            		<textarea class="form-control z-techno-el @error('description') is-invalid @enderror" name="description" placeholder="Enter Description">{{ old('description') }}</textarea>
                         @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -35,8 +46,8 @@
                         @enderror
 	            	</div>
 
-	            	<button class="btn btn-sm btn-success">Submit</button>
-	            	<a href="{{route('role.index')}}" class="btn btn-sm btn-danger"><i class="fa fa-arrow-left"></i> Back</a>
+	            	<button class="btn z-techno-btn z-techno-primary">Submit</button>
+	            	<a href="{{route('role.index')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Back</a>
 	            </form>
 	        </div>
         </div>

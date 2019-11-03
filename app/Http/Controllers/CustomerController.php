@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Model\Customer;
+use App\Model\{Customer,Role};
 use App\User;
 
 class CustomerController extends Controller
@@ -24,10 +24,12 @@ class CustomerController extends Controller
             'customers' => $customers
         ]);
     }
+
     public function create()
     {
         return view('customer.create');
     }
+
     public function new()
     {
         $users = $this->user->orderBy('name', 'ASC')->get();
@@ -49,6 +51,7 @@ class CustomerController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
         $customer = $this->customer->create([
             'user_id' => $user->id,
             'name' => $request->name,
@@ -57,6 +60,10 @@ class CustomerController extends Controller
             'status' => 0,
             'expired_at' => $request->expired_at
         ]);
+
+        $role = Role::where('slug','admin_sistem_informasi')->first();
+        if(!empty($role))
+            $user->roles()->attach($role);
 
         return redirect()->route('customer.index')->with(['success' => 'Customer has been created']);
     }
@@ -77,6 +84,10 @@ class CustomerController extends Controller
             'status' => 0,
             'expired_at' => $request->expired_at
         ]);
+
+        $role = Role::where('name','Customer')->first();
+        if(!empty($role))
+            $user->roles()->attach($role);
 
         return redirect()->route('customer.index')->with(['success' => 'Customer has been created']);
     }
@@ -105,7 +116,7 @@ class CustomerController extends Controller
             'email' => 'required',
             'phone_number' => 'required',
             'expired_at' => 'required',
-            'password' => 'required|string|min:8',
+            // 'password' => 'required|string|min:8',
         ]);
 
         $customer = $this->customer->find($id);
@@ -114,12 +125,22 @@ class CustomerController extends Controller
         $customer->phone_number = $request->input('phone_number'); 
         $customer->expired_at = $request->input('expired_at'); 
         if($customer->save()){
-            $user = $this->user->find($id);
+            $user = $this->user->find($customer->user_id);
             $user->name = $request->input('name'); 
             $user->email = $request->input('email'); 
-            $user->password = Hash::make($request->input('password')); 
+            if(!empty($request->password))
+                $user->password = Hash::make($request->input('password')); 
+
+            if(empty($user->roles) || count($user->roles) == 0)
+            {
+                $role = Role::where('name','Customer')->first();
+                if(!empty($role))
+                    $user->roles()->attach($role);
+            }
+
             $user->save();
         }
+
         return redirect()->route('customer.index')->with(['success' => 'Data has updated !']);
     }
     public function disable($id){

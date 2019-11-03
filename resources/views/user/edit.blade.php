@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('admin-users','sidebar-active')
 
 @section('content')
 <div class="container-fluid">
@@ -11,7 +12,7 @@
 
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" placeholder="Enter user Name">
+                        <input type="text" class="form-control z-techno-el @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" placeholder="Enter user Name">
 
                         @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -22,7 +23,7 @@
 
                     <div class="form-group">
                         <label>E-mail</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" placeholder="Enter user's Email">
+                        <input type="email" class="form-control z-techno-el @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" placeholder="Enter user's Email">
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -34,7 +35,7 @@
 
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter Password">
+                        <input type="password" class="form-control z-techno-el @error('password') is-invalid @enderror" name="password" placeholder="Enter Password">
 
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -43,8 +44,8 @@
                         @enderror
                     </div>
 
-	            	<button class="btn btn-sm btn-success">Submit</button>
-	            	<a href="{{route('user.index')}}" class="btn btn-sm btn-danger"><i class="fa fa-arrow-left"></i> Back</a>
+	            	<button class="btn z-techno-btn z-techno-primary">Submit</button>
+	            	<a href="{{route('user.index')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Back</a>
 	            </form>
 	        </div>
         </div>

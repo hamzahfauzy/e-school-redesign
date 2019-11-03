@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('phone_number');
             $table->string('email');
             $table->integer('status');
+            $table->string('picture');
             $table->date('expired_at');
             $table->timestamps();
 

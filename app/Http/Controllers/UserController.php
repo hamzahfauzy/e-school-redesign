@@ -80,6 +80,24 @@ class UserController extends Controller
             return redirect()->route('user.index')->with(['success' => 'User has updated']);
         }
     }
+    public function inactive($id){
+        return $this->change($id, 0, "In Active");
+    }
+    public function active($id){
+        return $this->change($id, 1, "Active");
+    }
+    function change($id, $status, $des)
+    {
+        $user = $this->user->find($id);
+        if($user){
+            $user->status = $status; 
+            if($user->save()){
+                return redirect()->route('user.index')->with(['success' => '"'.$user->name.'" has been '.$des.'.']);
+            }
+        }else{
+            return redirect()->route('user.index')->with(['success' => 'Sorry, Customer not found!']);
+        }
+    }
 
     public function destroy($id)
     {

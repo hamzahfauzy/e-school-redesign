@@ -26,11 +26,42 @@
         @include('layouts.partials.top-navbar')
         @include('layouts.partials.left-sidebar')
 
+        <div style="padding-top: 80px;"></div>
         <main>
             <div class="content-container">
                 @yield('content')
+
+                <div class="footer" style="padding-top: 40px;padding-bottom: 20px;">
+                    <center>&copy; 2019 . Z-Techno e-School</center>
+                </div>
             </div>
         </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script type="text/javascript">
+    function toggleLeftSidebar(){
+        $('.left-sidebar-section').toggleClass('toggle-sidebar')
+    }
+    $(".search-field").keyup(function(){
+        var searchVal = $(this).val().toLowerCase();
+        if(searchVal == "")
+        {
+            $('.search-row').show()
+        }
+        else
+        {
+            $('.search-row').hide()
+            $('.search-row').each(function( index ) {
+                var username = $(this).data("username").toString().toLowerCase();
+                if(username.indexOf(searchVal) != -1)
+                {
+                    $(this).show()
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>

@@ -30,12 +30,15 @@ class PaymentController extends Controller
     public function pending($id){
         return $this->change($id, 0, "Pending");
     }
+
     public function accept($id){
         return $this->change($id, 1, "Accepted");
     }
+    
     public function decline($id){
         return $this->change($id, 2, "Declined");
     }
+
     function change($id, $status, $des)
     {
         $payment = $this->payment->find($id);

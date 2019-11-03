@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('admin-payments','sidebar-active')
 
 @section('content')
 <div class="container-fluid">

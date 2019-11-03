@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+@section('admin-customers','sidebar-active')
 
 @section('content')
 <div class="container-fluid">
@@ -7,8 +8,8 @@
         	<div class="content-wrapper">
 	            <h2>Customers</h2>
 	            <p>
-	            	<a href="{{route('customer.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create User Customer</a>
-	            	<a href="{{route('customer.new')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> New Customer</a>
+	            	<a href="{{route('customer.create')}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-plus"></i> Create User Customer</a>
+	            	<a href="{{route('customer.new')}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-plus"></i> New Customer</a>
 	            </p>
 	            @if ($message = Session::get('success'))
 			      <div class="alert alert-success alert-block">
@@ -40,11 +41,11 @@
 	            			<td>{{$customer->email}}</td>
 	            			<td>
 								<div class="dropdown">
-								  <button class="btn 
+								  <button class="btn z-techno-btn 
 									@if($customer->status==0)
 										btn-secondary
 								  	@elseif($customer->status==1)
-								  		btn-third
+								  		btn-success
 								  	@else
 								  		btn-danger
 									@endif
@@ -53,23 +54,23 @@
 								  	@if($customer->status==0)
 										Disabled
 								  	@elseif($customer->status==1)
-								  		Actived
+								  		Activated
 								  	@else
 								  		Expired
 									@endif
 								  </button>
-								  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								  <div class="dropdown-menu z-techno-el" aria-labelledby="dropdownMenuButton">
 								    <a class="dropdown-item" href="{{route('customer.disable', $customer->id) }}">@if($customer->status==0) <i class="fa fa-check"></i> @endif Disable</a>
 								    <a class="dropdown-item" href="{{route('customer.active', $customer->id)}}">@if($customer->status==1) <i class="fa fa-check"></i> @endif Active</a>
 								    <a class="dropdown-item" href="{{route('customer.expired', $customer->id)}}">@if($customer->status==2) <i class="fa fa-check"></i> @endif Expired</a>
 								</div>
-  	            				</td>
+  	            			</td>
 	            			<td>
 	            				<form method="POST" action="{{route('customer.delete', $customer->user_id)}}">
 								    {{ csrf_field() }}
 								    {{ method_field('DELETE') }}
-		            				<a href="{{route('customer.edit', $customer->id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</a>
-								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</button>
+		            				<a href="{{route('customer.edit', $customer->id)}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-pencil"></i> Edit</a>
+								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn z-techno-btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
 								</form>
 	            			</td>
 	            		</tr>

@@ -16,13 +16,13 @@ class CreateSchoolProfilesTable extends Migration
         Schema::create('school_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('customer_id')->unsigned();
-            $table->string('name');
-            $table->text('address');
-            $table->string('phone_number');
-            $table->string('school_id');
-            $table->string('headmaster_name');
-            $table->string('headmaster_employee_id');
-            $table->string('picture');
+            $table->string('name')->nullable();
+            $table->text('address')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('school_id')->nullable();
+            $table->string('headmaster_name')->nullable();
+            $table->string('headmaster_employee_id')->nullable();
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }
