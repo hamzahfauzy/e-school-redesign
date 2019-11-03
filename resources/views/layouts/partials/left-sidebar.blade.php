@@ -67,6 +67,27 @@
 		    </li>
 		    @endforeach
 		    @endif
+
+		    @if(auth()->user()->isRole('siswa'))
+		    <li class="menu-divider">
+				Siswa Menu
+			</li>
+		    <li>
+		        <a href="/home"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+		    </li>
+		    @foreach(auth()->user()->isRole('siswa')->menus()->orderby('ordered_number','asc')->get() as $menu)
+		    <li>
+		        <a href="{{route($menu->route)}}" class="@yield($menu->route)"><i class="fa fa-list fa-fw"></i> {{$menu->name}}</a>
+		    </li>
+		    @endforeach
+		    @endif
+
+		    <li class="menu-divider">
+				Storage
+			</li>
+		    <li>
+		        <a href="#"><i class="fa fa-folder fa-fw"></i> Locker Storage</a>
+		    </li>
 		</ul>
 	</div>
 </div>
