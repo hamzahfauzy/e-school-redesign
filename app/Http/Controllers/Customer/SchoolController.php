@@ -24,7 +24,7 @@ class SchoolController extends Controller
             ]);
 
             $path = public_path().'/uploads/schools/' . $school->id;
-            mkdir($path);
+            if(file_exists($path)) mkdir($path);
         }
         return view('customer-section.school.index',[
             'school' => auth()->user()->customer->school
