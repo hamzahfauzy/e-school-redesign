@@ -118,12 +118,12 @@ Route::middleware(['auth','checkActive'])->group(function(){
 		});
 
 		Route::prefix('classrooms')->name('classrooms.')->group(function(){
-			Route::get('/','UserController@index')->name('index');
-			Route::get('create','UserController@create')->name('create');
-			Route::get('edit/{id}','UserController@edit')->name('edit');
-			Route::post('store','UserController@store')->name('store');
-			Route::post('update/{id}','UserController@update')->name('update');
-			Route::delete('delete/{id}','UserController@destroy')->name('delete');
+			Route::get('/','ClassroomController@index')->name('index');
+			Route::get('create','ClassroomController@create')->name('create');
+			Route::get('edit/{id}','ClassroomController@edit')->name('edit');
+			Route::post('store','ClassroomController@store')->name('store');
+			Route::post('update/{id}','ClassroomController@update')->name('update');
+			Route::delete('delete/{id}','ClassroomController@destroy')->name('delete');
 		});
 	});
 

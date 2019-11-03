@@ -41,7 +41,7 @@
 			    	<a href="{{route('profile')}}" style="padding: 0; margin:0;">{{auth()->user()->name}}</a>
 			    	@if(auth()->user()->isRole('admin_sistem_informasi') && auth()->user()->customer->school)
 			    	<small class="left-school-name">{{auth()->user()->customer->school->name}}</small>
-			    	@elseif(auth()->user()->school[0])
+			    	@elseif(auth()->user()->school && count(auth()->user()->school) > 0)
 			    	<small class="left-school-name">{{auth()->user()->school[0]->name}}</small>
 			    	@endif
 			    	</center>
