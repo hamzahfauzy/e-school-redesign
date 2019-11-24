@@ -12,8 +12,9 @@
                         @endif
                     </div>
                     <div class="author-name">
-                        <h4><a href="#">{{$exam->teacher->name}}</a></h4>
-                        <span class="badge badge-success">{{$exam->type}}</span> <small>{{$exam->updated_at->format('j F Y H:i:s')}}</small>
+                        <h4 style="margin:0;"><a href="#">{{$exam->teacher->name}}</a></h4>
+                        <small>{{$exam->updated_at->format('j F Y H:i:s')}}</small><br>
+                        <span class="badge badge-success">{{$exam->type}}</span>
                     </div>
                 </div>
 
@@ -41,7 +42,6 @@
             </div>
             <br>
             @else
-            @if($post->post_as == 'Tugas')
             <div class="content-wrapper">
                 <div class="author-section">
                     <div class="author-picture">
@@ -52,8 +52,9 @@
                         @endif
                     </div>
                     <div class="author-name">
-                        <h4><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$post->user->name}}</a></h4>
-                        <span class="badge badge-success">{{$post->post_as}}</span> <small>{{$post->updated_at->format('j F Y H:i:s')}}</small>
+                        <h4 style="margin:0;"><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$post->user->name}}</a></h4>
+                        <small>{{$post->updated_at->format('j F Y H:i:s')}}</small><br>
+                        <span class="badge badge-success">{{$post->post_as}}</span>
                     </div>
                 </div>
 
@@ -62,6 +63,7 @@
                 </div>
 
                 <div class="post-meta">
+                    @if($post->post_as == 'Tugas')
                     @if(empty($post->comments()->where('user_id',$user->id)->first()))
                     <form id="form-comment-{{$post->id}}" method="post" onsubmit="saveComment(this); return false;">
                         <input type="hidden" name="post_id" value="{{$post->id}}">
@@ -85,6 +87,8 @@
                                 </div>
                                 <div class="modal-body">
                                     <div style="padding: 15px;border:1px solid #eaeaea;">
+
+                                        <small>{{$post->comment($user->id)->created_at->format('j F Y H:i:s')}}</small>
                                         <p>{{$post->comment($user->id)->contents}}</p>
                                     </div>
                                 </div>
@@ -95,35 +99,42 @@
                         </div>
                     </div>
                     @endif
+                    @elseif($post->post_as == 'Semua Orang')
+                    <form id="form-comment-{{$post->id}}" method="post" onsubmit="saveComment(this); return false;">
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                        <div class="form-group">
+                            <textarea placeholder="Komentar Disini..." name="contents" class="form-control z-techno-el" style="resize: none;"></textarea>
+                        </div>
+                        <button class="btn z-techno-btn z-techno-primary">Poskan Komentar</button>
+                    </form>
+
+                    @if(!empty($post->comments) && count($post->comments) > 0)
+                    <div class="post-comment">
+                        @foreach($post->comments as $comment)
+                        <div class="post-comment-items">
+                            <div class="author-picture">
+                                @if($comment->user->picture)
+                                <img src="{{asset('uploads/schools/'.$comment->user->school[0]->id.'/'.$comment->user->id.'/'.$comment->user->picture)}}" width="100%">
+                                @else
+                                <img src="{{asset('assets/default.png')}}" width="100%">
+                                @endif
+                            </div>
+                            <div class="author-name">
+                                <h4 style="margin: 0;"><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$comment->user->name}}</a></h4>
+                                <small>{{$comment->updated_at->format('j F Y H:i:s')}}</small>
+                            </div>
+
+                            <p>{{$comment->contents}}</p>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    @endif
                 </div>
             </div>
             <br>
-            @else
-            <div class="content-wrapper">
-                <div class="author-section">
-                    <div class="author-picture">
-                        @if($post->user->picture)
-                        <img src="{{asset('uploads/schools/'.$post->user->school[0]->id.'/'.$post->user->id.'/'.$post->user->picture)}}" width="100%">
-                        @else
-                        <img src="{{asset('assets/default.png')}}" width="100%">
-                        @endif
-                    </div>
-                    <div class="author-name">
-                        <h4><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$post->user->name}}</a></h4>
-                        <span class="badge badge-success">{{$post->post_as}}</span> <small>{{$post->updated_at->format('j F Y H:i:s')}}</small>
-                    </div>
-                </div>
-
-                <div class="post-section">
-                    <p>{{$post->contents}}</p>
-                </div>
-
-                <div class="post-meta">
-                    
-                </div>
-            </div>
-            <br>
-            @endif
             @endif
             @elseif($user->isRole('guru'))
             @if($post->exam())
@@ -138,8 +149,9 @@
                         @endif
                     </div>
                     <div class="author-name">
-                        <h4><a href="{{route('profile')}}">{{$exam->teacher->name}}</a></h4>
-                        <span class="badge badge-success">{{$exam->type}}</span> <small>{{$exam->updated_at->format('j F Y H:i:s')}}</small>
+                        <h4 style="margin:0;"><a href="{{route('profile')}}">{{$exam->teacher->name}}</a></h4>
+                        <small>{{$exam->updated_at->format('j F Y H:i:s')}}</small><br>
+                        <span class="badge badge-success">{{$exam->type}}</span> 
                     </div>
                 </div>
 
@@ -178,8 +190,9 @@
                         @endif
                     </div>
                     <div class="author-name">
-                        <h4><a href="{{route('profile')}}">{{$post->user->name}}</a></h4>
-                        <span class="badge badge-success">{{$post->post_as}}</span> <small>{{$post->updated_at->format('j F Y H:i:s')}}</small>
+                        <h4 style="margin:0;"><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$post->user->name}}</a></h4>
+                        <small>{{$post->updated_at->format('j F Y H:i:s')}}</small><br>
+                        <span class="badge badge-success">{{$post->post_as}}</span>
                     </div>
                 </div>
 
@@ -203,7 +216,8 @@
                                 <div class="modal-body">
                                     @foreach($post->comments as $comment)
                                     <div style="padding: 15px;border:1px solid #eaeaea;">
-                                        <a href="#"><b>{{$comment->user->name}}</b></a>
+                                        <a href="#"><b>{{$comment->user->name}}</b></a><br>
+                                        <small>{{$comment->created_at->format('j F Y H:i:s')}}</small>
                                         <p>{{$comment->contents}}</p>
                                     </div>
                                     @endforeach
@@ -214,6 +228,38 @@
                             </div>
                         </div>
                     </div>
+                    @elseif($post->post_as == 'Semua Orang')
+                    <form id="form-comment-{{$post->id}}" method="post" onsubmit="saveComment(this); return false;">
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                        <div class="form-group">
+                            <textarea placeholder="Komentar Disini..." name="contents" class="form-control z-techno-el" style="resize: none;"></textarea>
+                        </div>
+                        <button class="btn z-techno-btn z-techno-primary">Poskan Komentar</button>
+                    </form>
+
+                    @if(!empty($post->comments) && count($post->comments) > 0)
+                    <div class="post-comment">
+                        @foreach($post->comments as $comment)
+                        <div class="post-comment-items">
+                            <div class="author-picture">
+                                @if($comment->user->picture)
+                                <img src="{{asset('uploads/schools/'.$comment->user->school[0]->id.'/'.$comment->user->id.'/'.$comment->user->picture)}}" width="100%">
+                                @else
+                                <img src="{{asset('assets/default.png')}}" width="100%">
+                                @endif
+                            </div>
+                            <div class="author-name">
+                                <h4 style="margin: 0;"><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$comment->user->name}}</a></h4>
+                                 <small>{{$comment->updated_at->format('j F Y H:i:s')}}</small>
+                            </div>
+
+                            <p>{{$comment->contents}}</p>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+
                     @endif
                 </div>
             </div>

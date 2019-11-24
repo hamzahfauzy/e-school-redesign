@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Model\Elearning\Exam;
+use App\User;
 
 class Role
 {

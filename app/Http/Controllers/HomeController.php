@@ -140,4 +140,12 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
+    function step($step)
+    {
+        if(auth()->user()->school && count(auth()->user()->school) > 0)
+            return redirect()->route('home');
+
+        return view('step-1');
+    }
 }

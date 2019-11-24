@@ -41,9 +41,10 @@
                 				<button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
                 				<button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
                 			</div> -->
-                			<select name="post_as" class="form-control z-techno-el select2" onchange="postType.style.display = 'none'; if(this.value != 'Catatan Pribadi' && this.value != '') postType.style.display = 'block'" required="">
-                				<option value="">Bagikan Sebagai</option>
-                				<option value="Catatan Pribadi">Catatan Pribadi</option>
+                			<select name="post_as" class="form-control z-techno-el select2" onchange="postType.style.display = 'none'; if(this.value != 'Catatan Pribadi' && this.value != 'Semua Orang' && this.value != '') postType.style.display = 'block'" required="">
+                				<option value="">Bagikan Ke / Sebagai</option>
+                				<option value="Semua Orang">Semua Orang</option>
+                                <option value="Catatan Pribadi">Catatan Pribadi</option>
                 				<option value="Pengumuman">Pengumuman</option>
                                 <option value="Tugas">Tugas</option>
                                 <option value="Materi">Materi</option>

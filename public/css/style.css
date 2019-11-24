@@ -180,6 +180,8 @@ small.left-school-name {
 
 .author-section {
 	overflow: auto;
+	padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .author-picture {
@@ -228,6 +230,30 @@ main {
 .h_iframe {
     height: 100%;
     width:100%;
+}
+
+.post-comment {
+	padding: 15px;
+    background-color: #efefef;
+    margin-top: 15px;
+}
+
+.post-comment-items {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #fff;
+}
+
+.school-suggestion {
+	border:1px solid #eaeaea;
+}
+
+.school-item {
+	padding: 15px;
+}
+
+.school-item:hover {
+	background-color: #eaeaea;
+	cursor: pointer;
 }
 
 @media only screen and (max-width: 786px) {

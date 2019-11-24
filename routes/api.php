@@ -25,6 +25,10 @@ Route::prefix('v1')->group(function(){
 		Route::post('logout', 'Api\AuthController@logout');
 	});
 
+    Route::get('school/get/{school}/majors','Api\HomeController@findMajors');
+    Route::get('school/get/{school}/majors/{major}/classrooms','Api\HomeController@findClassrooms');
+    Route::get('school/{keyword}','Api\HomeController@findSchool');
+    Route::post('finish-registration','Api\HomeController@finishRegistration');
     Route::post('get-posts','Api\HomeController@getPosts');
     Route::post('save-post','Api\HomeController@savePost');
     Route::post('save-comment','Api\HomeController@saveComment');

@@ -6,17 +6,52 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\User;
-use App\Model\Post;
+use App\Model\{Post, SchoolProfile, Role};
 use App\Model\Elearning\Exam;
+use App\Model\InformationSystem\{Major,Classroom};
 
 class HomeController extends Controller
 {
     //
 
+    public function findSchool($keyword)
+    {
+    	$schools = SchoolProfile::where('name','like','%'.$keyword.'%')->orwhere('school_id','like','%'.$keyword.'%')->get();
+    	return response()->json($schools);
+    }
+
+    public function findMajors(SchoolProfile $school)
+    {
+    	return response()->json($school->majors);
+    }
+
+    public function findClassrooms(SchoolProfile $school, Major $major)
+    {
+    	return response()->json($major->class_rooms);
+    }
+
+    public function finishRegistration(Request $request)
+    {
+    	$user = User::find($request->user_id);
+    	$role = Role::where('slug',$request->role)->first();
+    	$user->roles()->attach($role);
+    	$school = SchoolProfile::find($request->school);
+    	$user->school()->attach($school);
+
+    	if($request->role == 'siswa')
+    	{
+    		$classroom = Classroom::find($request->classroom);
+    		$user->getClassroom()->attach($classroom);
+    	}
+
+    	return response()->json(['success' => 1]);
+    }
+
     public function getPosts(Request $request)
     {
         $posts = [];
         $user = User::find($request->user_id);
+        $school_id = 0;
         if($user->isRole('siswa'))
         {
             $now = \Carbon\Carbon::now();
@@ -36,7 +71,7 @@ class HomeController extends Controller
                     $posts[] = $val->post()->id;
             }
 
-            $post = Post::whereIn('post_as',['Tugas','Pengumuman','Semua Orang','Teman Sekelas'])->where('post_as_id',$user->getClassroom[0]->id)->get();
+            $post = Post::whereIn('post_as',['Tugas','Materi','Pengumuman','Teman Sekelas'])->where('post_as_id',$user->getClassroom[0]->id)->get();
             foreach($post as $p)
                 $posts[] = $p->id;
 
@@ -57,6 +92,13 @@ class HomeController extends Controller
             $post = Post::whereIn('post_as',['Catatan Pribadi','Pengumuman','Tugas','Materi'])->where('user_id',$user->id)->get();
             foreach($post as $p)
                 $posts[] = $p->id;
+        }
+
+        if($user->school && count($user->school) > 0)
+        {
+	        $post = Post::where('post_as','Semua Orang')->where('school_id',$user->school[0]->id)->get();
+	        foreach($post as $p)
+	            $posts[] = $p->id;
         }
 
         $posts = Post::whereIn('id',$posts)->orderby('created_at','desc')->paginate(10);
