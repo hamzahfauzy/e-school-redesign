@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Elearning;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Elearning\QuestionAnswer as Answer;
+use App\Model\Elearning\ExamAnswer as Answer;
 use Validator;
 
 class AnswerController extends Controller

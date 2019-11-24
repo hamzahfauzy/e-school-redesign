@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Elearning;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-use App\Model\Elearning\{Exam,ExamItem,ExamAnswer};
+use App\Model\Elearning\{Exam,ExamItem,ExamAnswer,Question};
 
 class ExamItemController extends Controller
 {
@@ -21,39 +21,41 @@ class ExamItemController extends Controller
     }
 
     public function answer(Request $request){
-        foreach($request->all() as $req)
+        $answers = $request->answers;
+        $exam = Exam::find($request->exam_id);
+        foreach($answers as $key => $value)
         {
-            $answer = ExamAnswer::where('exam_item_id',$req['exam_item_id'])
-                                    ->where('student_id',$req['student_id'])
+
+            $item = $exam->questions()->where('question_id',$key)->first();
+            $answer = ExamAnswer::where('exam_item_id',$item->pivot->id)
+                                    ->where('student_id',$request->student_id)
                                     ->first();
+
+            $question = Question::find($key);
 
             if(empty($answer))
             {
                 $create = [
-                    'exam_item_id' => $req['exam_item_id'],
-                    'student_id'   => $req['student_id'],
+                    'exam_item_id' => $item->pivot->id,
+                    'student_id'   => $request->student_id,
                 ];
-                if($req['question_type'] == 'Essay')
-                    $create['question_answer_text'] = $req['answer'];
+                if($question->type == 'Essay')
+                    $create['question_answer_text'] = $value;
                 else
                 {
-                    $examItem = ExamItem::find($req['exam_item_id']);
-                    $question = $examItem->question;
-                    $create['question_answer_id'] = $req['answer'];
-                    $create['score'] = $req['answer'] == $question->key_answer_id ? 1 : 0;
+                    $create['question_answer_id'] = $value;
+                    $create['score'] = $value == $question->key_answer_id ? 1 : 0;
                 }
                 ExamAnswer::create($create);
                 continue;
             }
             $update = [];
-            if($req['question_type'] == 'Essay')
-                $update['question_answer_text'] = $req['answer'];
+            if($question->type == 'Essay')
+                $update['question_answer_text'] = $value;
             else
             {
-                $examItem = ExamItem::find($req['exam_item_id']);
-                $question = $examItem->question;
-                $update['question_answer_id'] = $req['answer'];
-                $update['score'] = $req['answer'] == $question->key_answer_id ? 1 : 0;
+                $update['question_answer_id'] = $value;
+                $update['score'] = $value == $question->key_answer_id ? 1 : 0;
             }
             $answer->update($update);
         }

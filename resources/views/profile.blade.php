@@ -99,7 +99,7 @@
                     </div>
 
                     <button class="btn z-techno-btn z-techno-primary">Submit</button>
-                    <a href="{{url('/')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Back</a>
+                    <a href="{{url('/home')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Back</a>
                 </form>
                 @endif
         	</div>

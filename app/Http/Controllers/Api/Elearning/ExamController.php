@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use App\Model\Elearning\{Exam,ExamItem,ExamAnswer,ExamStudent};
+use App\User;
 
 class ExamController extends Controller
 {
@@ -16,22 +17,21 @@ class ExamController extends Controller
         return response()->json($exams,$this->success);
     }
 
-    public function single($id){
-        $exam = Exam::find($id);
-        $exam->items;
-        foreach($exam->students as $student)
-        {
-            $totalScore = 0;
-            $examItems = ExamItem::where('exam_id',$student->exam_id)->get();
-            foreach($examItems as $item)
-            {
-                $answer = ExamAnswer::where('exam_item_id',$item->id)->where('student_id',$student->student_id)->first();
-                $totalScore += $answer->score;
-            }
+    public function single(Exam $exam){
+        foreach($exam->questions as $question)
+            $question->answers;
+        // foreach($exam->students as $student)
+        // {
+        //     $totalScore = 0;
+        //     foreach($exam->questions as $item)
+        //     {
+        //         $answer = ExamAnswer::where('exam_item_id',$item->id)->where('student_id',$student->student_id)->first();
+        //         $totalScore += $answer->score;
+        //     }
 
-            $totalScore = number_format(($totalScore / count($examItems))*10,2);
-            $student->totalScore = $totalScore;
-        }
+        //     $totalScore = number_format(($totalScore / count($examItems))*10,2);
+        //     $student->totalScore = $totalScore;
+        // }
         return response()->json($exam,$this->success);
     }
 
@@ -40,15 +40,14 @@ class ExamController extends Controller
         return response()->json($exam,$this->success);
     }
 
-    public function answers($id,$student_id){
+    public function answers(Exam $exam, $student){
         $response = [];
-        $exam = Exam::find($id);
-        foreach($exam->items as $item)
+        foreach($exam->questions as $question)
         {
-            $answer = ExamAnswer::where('exam_item_id',$item->id)->where('student_id',$student_id)->first();
+            $answer = ExamAnswer::where('exam_item_id',$question->pivot->id)->where('student_id',$student)->first();
             if(empty($answer))
                 continue;
-            $response[] = $item->question->question_type == 'Essay' ? $answer->question_answer_text : $answer->question_answer_id;
+            $response[$question->id] = $question->type == 'Essay' ? $answer->question_answer_text : $answer->question_answer_id;
         }
         return response()->json($response,$this->success);
     }
@@ -59,11 +58,10 @@ class ExamController extends Controller
     }
 
     public function setStatus(Request $request){
-        $exam = ExamStudent::create([
-            'exam_id' => $request->exam_id,
-            'student_id' => $request->student_id,
-            'status' => 1,
-        ]);
+        $exam = Exam::find($request->exam_id);
+        $exam = $exam->students()->where('student_id',$request->student_id)->first();
+        $exam->pivot->status = 2;
+        $exam->pivot->save();
         return response()->json(['success'=>1],$this->success);
     }
 

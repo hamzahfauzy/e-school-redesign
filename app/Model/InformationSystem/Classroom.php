@@ -4,6 +4,7 @@ namespace App\Model\InformationSystem;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Model\Elearning\Exam;
 
 class Classroom extends Model
 {
@@ -20,4 +21,18 @@ class Classroom extends Model
     public function teacher(){
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+    public function studies(){
+        return $this->belongsToMany(Study::class)->using(ClassroomStudy::class)->withPivot('user_id');
+    }
+
+    public function teachers(){
+        return $this->belongsToMany(User::class,'classroom_study')->using(ClassroomStudy::class)->withPivot('study_id');
+    }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
+
 }

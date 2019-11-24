@@ -13,7 +13,7 @@ class CreateExamItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exam_items', function (Blueprint $table) {
+        Schema::create('exam_question', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('exam_id')->unsigned();
             $table->bigInteger('question_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateExamItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_items');
+        Schema::dropIfExists('exam_question');
     }
 }

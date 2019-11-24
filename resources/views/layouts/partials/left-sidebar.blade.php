@@ -6,7 +6,7 @@
 				Administrator Menu
 			</li>
 		    <li>
-		        <a href="{{url('/home')}}"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+		        <a href="{{url('/home')}}" class="@yield('home-active')"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 		    </li>
 		    <li>
 		        <a href="{{route('product.index')}}" class="@yield('admin-products')"><i class="fa fa-archive fa-fw"></i> Products</a>
@@ -53,7 +53,7 @@
 		    	</div>
 		    </li>
 		    <li>
-		        <a href="{{url('/home')}}"><i class="fa fa-home fa-fw"></i> Dashboard</a>
+		        <a href="{{url('/home')}}" class="@yield('home-active')"><i class="fa fa-home fa-fw"></i> Dashboard</a>
 		    </li>
 		    @endif
 

@@ -4,9 +4,10 @@ namespace App\Model\Elearning;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ExamItem extends Model
+class ExamQuestion extends Model
 {
     protected $guarded = [];
+    protected $table = 'exam_question';
 
     function exam()
     {
@@ -17,4 +18,5 @@ class ExamItem extends Model
     {
     	return $this->hasOne(Question::class,'id','question_id');
     }
+
 }

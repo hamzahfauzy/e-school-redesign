@@ -1,99 +1,71 @@
 @extends('layouts.dashboard')
+@section('home-active','sidebar-active')
+@section('site-title','- Dashboard')
 
 @section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 col-lg-9">
-        	@if(auth()->user()->isRole('siswa'))
-            <div class="content-wrapper">
-            	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
-            	<form method="post" class="form-posts">
-            		<div class="form-group posts-group">
-            			<textarea class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
-                              <div class="z-techno-btn-group">
-                                    <button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
-                                    <button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
-                              </div>
-            			<select class="form-control z-techno-el select2" name="post_for">
-            				<option value="0">Catatan Pribadi</option>
-                                    <option value="1">Semua Orang</option>
-            				<option value="2">X TKJ 1</option>
-            			</select>
-            		</div>
-            		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
-            	</form>
-            </div>
-            @else
-            <div class="content-wrapper">
-            	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
-            	<form method="post" class="form-posts" enctype="multipart/form-data">
-            		<div class="form-group posts-group">
-            			<textarea class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
-            			<div class="z-techno-btn-group">
-            				<button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
-            				<button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
-            			</div>
-            			<select class="form-control z-techno-el select2" onchange=" postType.style.display = 'none'; if(this.value != 1) postType.style.display = 'block'" name="post_for">
-            				<option value="">Bagikan Sebagai</option>
-            				<option value="1">Catatan Pribadi</option>
-            				<option value="2">Pengumuman</option>
-                                    <option value="3">Tugas</option>
-                                    <option value="4">Materi</option>
-            			</select>
-            			<select class="form-control z-techno-el select2" id="postType" name="post_for" style="display: none;">
-            				<option value="">X TKJ 1</option>
-                                    <option value="">X TKJ 2</option>
-                                    <option value="">X TKJ 3</option>
-            			</select>
-            			<div style="display: none">
-            				<input type="file" name="file" id="fileUploadPost" onchange="fileUploadPostBtn.innerHTML = '1 File Terpilih'">
-            				<input type="file" name="gambar" id="gambarUploadPost" onchange="gambarUploadPostBtn.innerHTML = '1 Gambar Terpilih'">
-            			</div>
-            		</div>
-            		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
-            	</form>
-            </div>
-            @endif
-            <br>
-
-            {{'',$i=10}}
-            @while($i)
-            <div class="content-wrapper">
-            	<div class="author-section">
-            		<div class="author-picture">
-            			@if(auth()->user()->customer && auth()->user()->customer->picture)
-				    	<img src="{{asset('uploads/schools/'.auth()->user()->customer->school->id.'/'.auth()->user()->customer->picture)}}" width="100%">
-				    	@elseif(auth()->user()->picture)
-				    	<img src="{{asset('uploads/schools/'.auth()->user()->school[0]->id.'/'.auth()->user()->id.'/'.auth()->user()->picture)}}" width="100%">
-				    	@else
-				    	<img src="{{asset('assets/default.png')}}" width="100%">
-				    	@endif
-            		</div>
-            		<div class="author-name">
-            			<h4><a href="{{route('profile')}}">{{auth()->user()->name}}</a></h4>
-            			<span class="badge badge-success">Pengumuman</span> <small>27 Agustus 2019 - 16:00 WIB</small>
-            		</div>
-            	</div>
-
-            	<div class="post-section">
-            		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            	</div>
-
-            	<div class="post-meta">
-            		<button class="btn z-techno-btn z-techno-primary">Jawab Tugas</button>
-            		<button class="btn z-techno-btn z-techno-primary">Ikuti Kelas</button>
-            		<button class="btn z-techno-btn z-techno-primary">Ikuti Kuis</button>
-                        <button class="btn z-techno-btn z-techno-primary">Ikuti Ujian</button>
-            	</div>
+            <div style="overflow: hidden;">
+                <div class="content-overlay" style="display:none;position: absolute;background-color: rgba(0,0,0,0.5);">
+                    <center>
+                    <p style="margin-top: 110px;color: #FFF;">Membagikan post...</p>
+                    </center>
+                </div>
+            	@if(auth()->user()->isRole('siswa'))
+                <div class="content-wrapper">
+                	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
+                	<form method="post" class="form-posts" enctype="multipart/form-data" onsubmit="savePost(this); return false">
+                		<div class="form-group posts-group">
+                			<textarea name="contents" class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
+                            <!-- <div class="z-techno-btn-group">
+                                <button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
+                                <button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
+                            </div> -->
+                			<select class="form-control z-techno-el select2" name="post_as">
+                				<option value="Catatan Pribadi">Catatan Pribadi</option>
+                                <option value="Semua Orang">Semua Orang</option>
+                				<option value="Teman Sekelas">Teman Sekelas</option>
+                			</select>
+                		</div>
+                		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
+                	</form>
+                </div>
+                @else
+                <div class="content-wrapper">
+                	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
+                	<form method="post" class="form-posts" enctype="multipart/form-data" onsubmit="savePost(this); return false">
+                		<div class="form-group posts-group">
+                			<textarea name="contents" class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
+                			<!-- <div class="z-techno-btn-group">
+                				<button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
+                				<button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
+                			</div> -->
+                			<select name="post_as" class="form-control z-techno-el select2" onchange="postType.style.display = 'none'; if(this.value != 'Catatan Pribadi' && this.value != '') postType.style.display = 'block'" required="">
+                				<option value="">Bagikan Sebagai</option>
+                				<option value="Catatan Pribadi">Catatan Pribadi</option>
+                				<option value="Pengumuman">Pengumuman</option>
+                                <option value="Tugas">Tugas</option>
+                                <option value="Materi">Materi</option>
+                			</select>
+                			<select class="form-control z-techno-el select2" id="postType" name="post_as_id" style="display: none;">
+                				@foreach(auth()->user()->classrooms as $classroom)
+                                <option value="{{$classroom->id}}">{{$classroom->name}}</option>
+                                @endforeach
+                			</select>
+                			<div style="display: none">
+                				<input type="file" name="file" id="fileUploadPost" onchange="fileUploadPostBtn.innerHTML = '1 File Terpilih'">
+                				<input type="file" name="gambar" id="gambarUploadPost" onchange="gambarUploadPostBtn.innerHTML = '1 Gambar Terpilih'">
+                			</div>
+                		</div>
+                		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
+                	</form>
+                </div>
+                @endif
             </div>
             <br>
-            <?php $i-- ?>
-            @endwhile
+
+            <div class="post-list"></div>
         </div>
 
         <div class="col-lg-3 col-md-12">
@@ -101,4 +73,93 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript" defer>
+async function loadPosts(url = false)
+{
+    $('.post-list').html("Loading...")
+    if(!url)
+        url = window.config.getApiUrl()+'/get-posts'
+    let response = await fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            user_id:'{{auth()->user()->id}}',
+        })
+    })
+
+    let data = await response.text()
+    $('.post-list').html(data)
+
+}
+
+async function savePost(el)
+{
+    var frm = $(el);
+    var contentWrapper = $('.content-wrapper');
+    var overlay = $('.content-overlay');
+    overlay.css('width',contentWrapper.outerWidth())
+    overlay.css('height',contentWrapper.outerHeight())
+    overlay.css('display','block')
+    let response = await fetch(window.config.getApiUrl()+'/save-post',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            user_id:'{{auth()->user()->id}}',
+            contents:$('textarea[name=contents]').val(),
+            post_as:$('select[name=post_as]').val(),
+            post_as_id:$('select[name=post_as_id]').val(),
+        })
+    })
+
+    let data = await response.json()
+    if(data.success)
+    {
+        await loadPosts()
+        el.reset()
+        $('select[name=post_as]').val('').change()
+    }
+    overlay.css('display','none')
+    return false
+}
+
+async function saveComment(el)
+{
+    event.preventDefault();
+    var frm = $(el)
+    let response = await fetch(window.config.getApiUrl()+'/save-comment',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            user_id:frm.find('input[name=user_id]').val(),
+            post_id:frm.find('input[name=post_id]').val(),
+            contents:frm.find('textarea[name=contents]').val(),
+        })
+    })
+
+    let data = await response.json()
+    if(data.success)
+        await loadPosts()
+    return false
+}
+
+loadPosts();
+
+$('body').on('click', '.pagination a', function(e) {
+    e.preventDefault();
+
+    var url = $(this).attr('href');  
+    var page = window.getParam('page',url);
+    loadPosts(url);
+    window.history.pushState("", "", "#page-"+page);
+});
+</script>
 @endsection

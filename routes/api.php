@@ -25,6 +25,10 @@ Route::prefix('v1')->group(function(){
 		Route::post('logout', 'Api\AuthController@logout');
 	});
 
+    Route::post('get-posts','Api\HomeController@getPosts');
+    Route::post('save-post','Api\HomeController@savePost');
+    Route::post('save-comment','Api\HomeController@saveComment');
+
 	Route::prefix('user')->group(function(){
         Route::get('', 'Api\UserController@index');
         Route::post('create','Api\UserController@register');
@@ -163,9 +167,9 @@ Route::prefix('v1')->group(function(){
 
     Route::prefix('exam')->group(function(){
         Route::get('{teacher_id}','Api\Elearning\ExamController@index');
-        Route::get('get/{ID}','Api\Elearning\ExamController@single');
+        Route::get('get/{exam}','Api\Elearning\ExamController@single');
         Route::get('get-with-students/{ID}','Api\Elearning\ExamController@singleWithStudents');
-        Route::get('get/{ID}/answers/{student_id}','Api\Elearning\ExamController@answers');
+        Route::get('get/{exam}/answers/{student}','Api\Elearning\ExamController@answers');
         Route::get('get-status/{ID}/answers/{student_id}','Api\Elearning\ExamController@getStatus');
         Route::post('get-student-answer','Api\Elearning\ExamController@getStudentAnswer');
         Route::post('get-student-total-score','Api\Elearning\ExamController@getStudentTotalScore');

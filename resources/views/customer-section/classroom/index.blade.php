@@ -33,7 +33,9 @@
 
 	            		@foreach($classrooms as $key => $classroom)
 	            		<tr>
-	            			<td align="center">{{++$key}}</td>
+	            			<td align="center">
+	            				{{++$key}}
+	            			</td>
 	            			<td>{{$classroom->name}}</td>
 	            			<td>{{$classroom->major->name}}</td>
 	            			<td>{{$classroom->teacher->name}}</td>
@@ -41,9 +43,10 @@
 	            				<form method="POST" action="{{route('sistem-informasi.classrooms.delete', $classroom->id)}}">
 								    {{ csrf_field() }}
 								    {{ method_field('DELETE') }}
-		            				<a href="{{route('sistem-informasi.classrooms.show', $classroom->id)}}" class="btn z-techno-btn btn-success"><i class="fa fa-eye"></i> Lihat Siswa</a>
-		            				<a href="{{route('sistem-informasi.classrooms.edit', $classroom->id)}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-pencil"></i> Edit</a>
-								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn z-techno-btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+		            				<a href="{{route('sistem-informasi.classrooms.show', $classroom->id)}}" class="btn z-techno-btn btn-success"><i class="fa fa-eye"></i> Siswa</a>
+		            				<a href="{{route('sistem-informasi.classrooms.show-studies', $classroom->id)}}" class="btn z-techno-btn btn-primary"><i class="fa fa-eye"></i> Mata Pelajaran</a>
+		            				<a href="{{route('sistem-informasi.classrooms.edit', $classroom->id)}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-pencil"></i></a>
+								    <button onclick="if(!confirm('Are you sure to delete?')){ return false; }" class="btn z-techno-btn btn-danger"><i class="fa fa-trash"></i></button>
 								</form>
 	            			</td>
 	            		</tr>

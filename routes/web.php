@@ -123,27 +123,71 @@ Route::middleware(['auth','checkActive'])->group(function(){
 			Route::get('create','ClassroomController@create')->name('create');
 			Route::get('edit/{id}','ClassroomController@edit')->name('edit');
 			Route::get('show/{id}','ClassroomController@show')->name('show');
+			Route::get('show-studies/{id}','ClassroomController@showStudies')->name('show-studies');
 			Route::get('show/{id}/create','ClassroomController@studentCreate')->name('students.create');
+			Route::get('show-studies/{id}/create','ClassroomController@studyCreate')->name('studies.create');
+			Route::get('show-studies/{id}/edit/{study_id}','ClassroomController@studyEdit')->name('studies.edit');
 			Route::post('store-student','ClassroomController@storeStudent')->name('students.store');
+			Route::post('store-study','ClassroomController@storeStudy')->name('studies.store');
 			Route::post('store','ClassroomController@store')->name('store');
 			Route::post('update/{id}','ClassroomController@update')->name('update');
+			Route::post('update/{id}/studies/{study_id}','ClassroomController@updateStudy')->name('studies.update');
 			Route::delete('delete/{id}','ClassroomController@destroy')->name('delete');
 			Route::delete('delete/{id}/student/{user_id}','ClassroomController@destroyStudent')->name('students.delete');
+			Route::delete('delete/{id}/studies/{study_id}','ClassroomController@destroyStudy')->name('studies.delete');
 		});
 	});
 
 	Route::middleware('role:siswa')->prefix('student')->namespace('Student')->name('students.')->group(function(){
-		Route::get('/exams','HomeController@index')->name('exams.index');
-		Route::get('/assignments','HomeController@index')->name('assignments.index');
+		Route::prefix('exams')->name('exams.')->group(function(){
+			Route::get('/','ExamController@index')->name('index');
+			Route::get('show/{exam}','ExamController@show')->name('show');
+			Route::get('show/{exam}/result/{student}','ExamController@result')->name('result');
+		});
+		Route::get('/assignments','AssignmentController@index')->name('assignments.index');
 		Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
 	});
 
 	Route::middleware('role:guru')->prefix('teacher')->namespace('Teacher')->name('teachers.')->group(function(){
-		Route::get('/questions','HomeController@index')->name('questions.index');
-		Route::get('/exams','HomeController@index')->name('exams.index');
+		Route::prefix('questions')->name('questions.')->group(function(){
+			Route::get('/','QuestionController@index')->name('index');
+			Route::get('create','QuestionController@create')->name('create');
+			Route::get('edit/{question}','QuestionController@edit')->name('edit');
+			Route::get('show/{question}','QuestionController@show')->name('show');
+			Route::get('show/{question}/answer/create','QuestionController@createAnswer')->name('answer.create');
+			Route::get('show/{question}/answer/{answer}/update','QuestionController@setAnswer')->name('answer.update');
+			Route::post('store','QuestionController@store')->name('store');
+			Route::post('store-answer','QuestionController@storeAnswer')->name('answer.store');
+			Route::put('update','QuestionController@update')->name('update');
+			Route::delete('delete','QuestionController@destroy')->name('delete');
+			Route::delete('delete-answer','QuestionController@destroyAnswer')->name('answer.delete');
+		});
+
+		Route::prefix('exams')->name('exams.')->group(function(){
+			Route::get('/','ExamController@index')->name('index');
+			Route::get('create','ExamController@create')->name('create');
+			Route::get('edit/{exam}','ExamController@edit')->name('edit');
+			Route::get('show/{exam}','ExamController@show')->name('show');
+			Route::get('show/{exam}/result/{student}','ExamController@result')->name('result');
+			Route::post('save-result','ExamController@saveResult')->name('save-result');
+			Route::post('store','ExamController@store')->name('store');
+			Route::post('publish','ExamController@publish')->name('publish');
+			Route::put('update','ExamController@update')->name('update');
+			Route::delete('delete','ExamController@destroy')->name('delete');
+
+			Route::prefix('items')->name('items.')->group(function(){
+				Route::get('{exam}','ExamItemController@index')->name('index');
+				Route::get('{exam}/create','ExamItemController@create')->name('create');
+				Route::post('{exam}/store','ExamItemController@store')->name('store');
+				Route::delete('{exam}/delete','ExamItemController@destroy')->name('delete');
+			});
+		});
+
 		Route::get('/assignments','HomeController@index')->name('assignments.index');
 		Route::get('/assessments','HomeController@index')->name('assessments.index');
-		Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
+		Route::get('/virtual-class',function(){
+			return "<h2>Coming soon</h2>";
+		})->name('virtual-class.index');
 	});
 
 	Route::middleware('role:wali_kelas')->prefix('counselor')->namespace('Counselor')->name('counselors.')->group(function(){

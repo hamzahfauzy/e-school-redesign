@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Model\{SchoolProfile,Role,Customer};
+use App\Model\Elearning\{Question,Exam};
+use App\Model\InformationSystem\{Classroom,Study,ClassroomStudy};
 
 class User extends Authenticatable
 {
@@ -59,6 +61,36 @@ class User extends Authenticatable
 
     public function customer(){
         return $this->hasOne(Customer::class, 'user_id');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class,'user_id');
+    }
+
+    public function studies()
+    {
+        return $this->belongsToMany(Study::class,'classroom_study')->using(ClassroomStudy::class)->withPivot('id','study_id','classroom_id','user_id');
+    }
+
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class,'classroom_study')->using(ClassroomStudy::class);
+    }
+
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function getClassroom()
+    {
+        return $this->belongsToMany(Classroom::class,'classroom_student');
+    }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
     }
 
 

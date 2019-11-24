@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} @yield('site-title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -36,15 +36,14 @@
         </main>
     </div>
     <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js" defer=""></script>
     <!-- Scripts -->
+    <script src="{{ asset('js/config.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript">
     function toggleLeftSidebar(){
         $('.left-sidebar-section').toggleClass('toggle-sidebar')
     }
     $(document).ready(function() {
-        $('select.select2').select2();
         $(".search-field").keyup(function(){
             var searchVal = $(this).val().toLowerCase();
             if(searchVal == "")
@@ -65,5 +64,6 @@
         });
     });
     </script>
+    @yield('script')
 </body>
 </html>
