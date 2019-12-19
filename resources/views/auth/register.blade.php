@@ -64,12 +64,14 @@
             }
         </style>
     </head>
-    <body>
+    <body style="background-image: url({{asset('assets/login-bg.jpg')}});background-size: cover;background-repeat: no-repeat;">
         <div class="flex-center position-ref full-height">
-            <div class="content">
+            <div class="content" style="background-color: rgba(255,255,255,.7);padding: 30px;">
                 <center>
-                <img src="{{asset('assets/z-techno.png')}}">
-                <h2>e-School Register</h2>
+                <!-- <img src="{{asset('assets/z-techno.png')}}"> -->
+                <img src="{{asset('assets/default.png')}}" width="150px">
+                <h2>E-School Register</h2>
+                <!-- <h2>SMK Negeri 1 Pulau Rakyat</h2> -->
                 </center>
                 <div class="container">
                     <div class="row">
@@ -116,8 +118,8 @@
                                         Register
                                     </button>
                                     <center>
-                                        <a class="btn btn-link" href="{{url('/login')}}">Login</a>
-                                        <a class="btn btn-link" href="{{url('/')}}">Back to home</a>
+                                        <p></p>
+                                        Sudah Punya Akun ? Silahkan <a href="{{url('/login')}}">Login</a>
                                     </center>
                                 </div>
                             </form>

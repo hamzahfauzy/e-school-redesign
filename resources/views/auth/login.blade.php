@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>SMK Negeri 1 Pulau Rakyat | Login</title>
+        <title>Z-Techno E-School | Login</title>
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -69,10 +69,10 @@
         <div class="flex-center position-ref full-height">
             <div class="content" style="background-color: rgba(255,255,255,.7);padding: 30px;">
                 <center>
-                <!-- <img src="{{asset('assets/z-techno.png')}}">
-                <h2>e-School Login</h2> -->
+                <!-- <img src="{{asset('assets/z-techno.png')}}"> -->
                 <img src="{{asset('assets/default.png')}}" width="150px">
-                <h2>SMK Negeri 1 Pulau Rakyat</h2>
+                <h2>E-School Login</h2>
+                <!-- <h2>SMK Negeri 1 Pulau Rakyat</h2> -->
                 </center>
                 <div class="container">
                     <div class="row">
