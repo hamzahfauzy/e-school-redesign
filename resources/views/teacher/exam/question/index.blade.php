@@ -9,7 +9,8 @@
         	<div class="content-wrapper">
 	            <h2>Soal Kuis {{$exam->name}}</h2>
 	            <p>
-	            	@if($exam->start_at != null && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)))
+	            	<!-- if($exam->start_at != null && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at))) -->
+	            	@if($exam->start_at == null)
 	            	<a href="{{route('teachers.exams.items.create',$exam->id)}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-plus"></i> Tambah Soal</a>
 	            	@endif
 	            	<a href="{{route('teachers.exams.index')}}" class="btn z-techno-btn z-techno-secondary"><i class="fa fa-arrow-left"></i> Kembali</a>
