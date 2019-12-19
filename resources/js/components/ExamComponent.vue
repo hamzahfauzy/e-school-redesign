@@ -41,87 +41,92 @@
 </template>
 
 <script>
-    export default {
-        name: 'exam',
-        props: [
-            'id',
-            'student_id'
-        ],
-        data(){
-            return {
-                exam: {},
-                questionActive: {},
-                answered:{},
-                index:0,
-                headers:{},
-            }
+export default {
+    name: 'exam',
+    props: [
+        'id',
+        'student_id'
+    ],
+    data(){
+        return {
+            exam: {},
+            questionActive: {},
+            answered:{},
+            index:0,
+            headers:{},
+        }
+    },
+    mounted() {
+        // console.log('Component mounted.')
+    },
+    async created(){
+        this.headers = {
+            'Content-Type':'application/json'
+        }
+        await this.loadExam()
+        await this.loadAnswered()
+    },
+    methods: {
+        async loadExam(){
+            let response = await fetch(window.config.getApiUrl()+'/exam/get/'+this.id)
+            let data = await response.json()
+            this.exam = data
+            this.questionActive = this.exam.questions[this.index]
+            this.exam.questions.forEach((question) => {
+                if(question.type == 'Essay')
+                    this.answered[question.id] = null
+                else
+                    this.answered[question.id] = null
+            })
+            return data
         },
-        mounted() {
-            // console.log('Component mounted.')
-        },
-        async created(){
-            this.headers = {
-                'Content-Type':'application/json'
-            }
-            await this.loadExam()
-            await this.loadAnswered()
-        },
-        methods: {
-            async loadExam(){
-                let response = await fetch(window.config.getApiUrl()+'/exam/get/'+this.id)
-                let data = await response.json()
-                this.exam = data
-                this.questionActive = this.exam.questions[this.index]
-
-                return data
-            },
-            async loadAnswered(){
-                let response = await fetch(window.config.getApiUrl()+'/exam/get/'+this.id+'/answers/'+this.student_id)
-                let data = await response.json()
+        async loadAnswered(){
+            let response = await fetch(window.config.getApiUrl()+'/exam/get/'+this.id+'/answers/'+this.student_id)
+            let data = await response.json()
+            if(data.length != 0)
                 this.answered = data
-
-                return data
-            },
-            questionNavigation(index,status=false){
-                if(!status)
-                    index = index - 1
-                this.index = index
-                this.questionActive = this.exam.questions[index]
-                this.sendAnswer()
-            },
-            async finishExam(){
-                var n = window.confirm('Apakah anda yakin menyelesaikan kuis ini ?')
-                if(!n)
-                    return
-                let response = await fetch(window.config.getApiUrl()+'/exam/finish',{
-                    method:'POST',
-                    headers:this.headers,
-                    body:JSON.stringify({
-                        student_id:this.student_id,
-                        exam_id:this.id
-                    })
+            return data
+        },
+        questionNavigation(index,status=false){
+            if(!status)
+                index = index - 1
+            this.index = index
+            this.questionActive = this.exam.questions[index]
+            this.sendAnswer()
+        },
+        async finishExam(){
+            var n = window.confirm('Apakah anda yakin menyelesaikan kuis ini ?')
+            if(!n)
+                return
+            let response = await fetch(window.config.getApiUrl()+'/exam/finish',{
+                method:'POST',
+                headers:this.headers,
+                body:JSON.stringify({
+                    student_id:this.student_id,
+                    exam_id:this.id
                 })
-                let data = await response.json()
-                if(data.success == true)
-                    location=window.config.baseUrl()+'/student/exams'
-            },
-            async sendAnswer(){
-                let response = await fetch(window.config.getApiUrl()+'/exam_item/answer',{
-                    method:'POST',
-                    headers:this.headers,
-                    body:JSON.stringify({
-                        answers:this.answered,
-                        student_id:this.student_id,
-                        exam_id:this.id
-                    })
+            })
+            let data = await response.json()
+            if(data.success == true)
+                location=window.config.baseUrl()+'/student/exams'
+        },
+        async sendAnswer(){
+            let response = await fetch(window.config.getApiUrl()+'/exam_item/answer',{
+                method:'POST',
+                headers:this.headers,
+                body:JSON.stringify({
+                    answers:this.answered,
+                    student_id:this.student_id,
+                    exam_id:this.id
                 })
-                let data = await response.json()
-            },
-            questionAnswered(id){
-                return this.answered[id] != undefined
-            }
+            })
+            let data = await response.json()
+        },
+        questionAnswered(id){
+            return this.answered[id] != undefined
         }
     }
+}
 </script>
 
 <style>

@@ -44,7 +44,7 @@
 	            					Pilihan Berganda : {{$exam->questions()->where('type','Pilihan Berganda')->count()}}<br>
 	            					Essay : {{$exam->questions()->where('type','Essay')->count()}}
 	            				</p>
-	            				@if($exam->student && $exam->student->pivot->status == 3)
+	            				@if($exam->student && ($exam->student->pivot->status == 3 || $exam->student->pivot->status == 2))
 	            				<a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">Nilai Kamu {{$exam->totalScore}}</a>
 	            				<a href="{{route('students.exams.result',[$exam->id,auth()->user()->id])}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-eye"></i> Hasil</a>
 	            				@else

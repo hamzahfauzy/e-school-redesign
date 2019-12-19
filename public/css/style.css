@@ -18,12 +18,16 @@ html, body, #app {
 	display: inline-block;
 	/*background-color: #FFF;*/
 	overflow: hidden;
-	overflow-y: auto;
+	/*overflow-y: auto;*/
 	height: 100vh;
 	left: 0;
 	top: 0;
 	position: fixed;
 	transition: width 0.5s ease 0s;
+}
+
+.left-sidebar-section:hover {
+	overflow-y: auto;
 }
 
 li.menu-divider {
@@ -137,6 +141,7 @@ small.left-school-name {
 
 .z-techno-navbar {
 	background-color: #130912 !important;
+	/*background-color: #2980b9 !important;*/
 	z-index: 3;
 	width: 100%;
 	position: fixed;
@@ -207,12 +212,13 @@ small.left-school-name {
 
 main {
 	/*display: inline-block;*/
-	width: 100%;
+	/*width: 100%;*/
+	margin:10px;
 	
 }
 
 .content-container {
-	padding-top: 15px;
+	padding-top: 5px;
 	margin-left: 280px;
 	transition: margin-left 0.5s ease 0s;
 }
@@ -236,11 +242,18 @@ main {
 	padding: 15px;
     background-color: #efefef;
     margin-top: 15px;
+    display: block;
+    overflow: auto;
+    max-height: 500px;
 }
 
 .post-comment-items {
 	margin-bottom: 10px;
 	border-bottom: 1px solid #fff;
+}
+
+.comment-content p, .post-section p {
+	word-break: break-all;
 }
 
 .school-suggestion {
@@ -256,6 +269,68 @@ main {
 	cursor: pointer;
 }
 
+.person-response {
+	padding-top: 10px;
+	position: absolute;
+	width: 100%;
+	margin-top: 25px;
+}
+
+.person-response-to {
+	overflow: auto;
+}
+
+.person-response-item {
+	overflow: auto;
+	background-color: #FFF;
+	padding: 10px;
+	height: auto;
+	display: block;
+	cursor: pointer;
+}
+.chat-items {
+	padding: 10px;
+	padding-bottom: 0px;
+	cursor: pointer;
+}
+.person-response-item:hover, .chat-items:hover, .chat-active {
+	background-color: #eaeaea;
+}
+
+.comment-content {
+	margin-left: 65px;
+}
+
+.chat-list p {
+	font-size: 12px;
+	word-break: break-all;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+@media only screen and (max-width: 991px) {
+	.chat-sidebar {
+		display: none;
+	}
+}
 @media only screen and (max-width: 786px) {
 	.left-sidebar-section {
 		width: 0px;
@@ -265,11 +340,4 @@ main {
 	.content-container {
 		margin-left: 0px;
 	}
-}
-
-@media screen and ( max-height: 590px )
-{
-	/*.left-sidebar-section {
-		overflow-y: scroll;
-	}*/
 }

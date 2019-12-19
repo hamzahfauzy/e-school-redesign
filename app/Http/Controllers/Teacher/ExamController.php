@@ -122,13 +122,16 @@ class ExamController extends Controller
         foreach($exam->questions as $question)
         {
             $answer = ExamAnswer::where('exam_item_id',$question->pivot->id)->where('student_id',$student->id)->first();
-            if(empty($answer))
-                continue;
+            // if(empty($answer))
+            //     continue;
             $data[] = [
                 'question' => $question,
                 'answer'   => $answer
             ];
 
+            if(empty($answer))
+                continue;
+            
             $totalScore += $answer->score;
         }
 

@@ -22,7 +22,12 @@ Route::middleware(['auth','checkActive'])->group(function(){
 	Route::get('/step/{step}', 'HomeController@step')->name('step');
 	Route::middleware('checkSchool')->group(function(){
 		Route::get('/home', 'HomeController@index')->name('home');
-		Route::get('/chats','HomeController@index')->name('chats.index');
+		Route::get('/chats','HomeController@chats')->name('chats.index');
+		// Route::get('/locker-storage','HomeController@lockerStorage')->name('locker-storage.index');
+		Route::get('/locker-storage',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('locker-storage.index');
+
 		Route::middleware('role:admin')->prefix('admin')->group(function(){
 			Route::prefix('products')->group(function(){
 				Route::get('/','ProductController@index')->name('product.index');
@@ -186,17 +191,27 @@ Route::middleware(['auth','checkActive'])->group(function(){
 			});
 
 			Route::get('/assignments','HomeController@index')->name('assignments.index');
-			Route::get('/assessments','HomeController@index')->name('assessments.index');
+			Route::get('/assessments',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('assessments.index');
 			Route::get('/virtual-class',function(){
 				return "<h2>Coming soon</h2>";
 			})->name('virtual-class.index');
 		});
 
 		Route::middleware('role:wali_kelas')->prefix('counselor')->namespace('Counselor')->name('counselors.')->group(function(){
-			Route::get('/students','HomeController@index')->name('students.index');
-			Route::get('/questions','HomeController@index')->name('assessments.index');
-			Route::get('/exams','HomeController@index')->name('absences.index');
-			Route::get('/assignments','HomeController@index')->name('reports.index');
+			Route::get('/students',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('students.index');
+			Route::get('/questions',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('assessments.index');
+			Route::get('/exams',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('absences.index');
+			Route::get('/assignments',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('reports.index');
 		});
 
 

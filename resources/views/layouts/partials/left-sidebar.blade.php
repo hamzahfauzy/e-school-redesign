@@ -113,7 +113,7 @@
 				Storage
 			</li>
 		    <li>
-		        <a href="#"><i class="fa fa-folder fa-fw"></i> Locker Storage</a>
+		        <a href="{{route('locker-storage.index')}}" class="@yield('local-storage.index')"><i class="fa fa-folder fa-fw"></i> Locker Storage</a>
 		    </li>
 		</ul>
 	</div>

@@ -5,19 +5,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>e-School Login</title>
+        <title>SMK Negeri 1 Pulau Rakyat | Login</title>
 
         <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link rel="shortcut icon" href="{{asset('assets/default.png')}}">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -64,12 +65,14 @@
             }
         </style>
     </head>
-    <body>
+    <body style="background-image: url({{asset('assets/login-bg.jpg')}});background-size: cover;background-repeat: no-repeat;">
         <div class="flex-center position-ref full-height">
-            <div class="content">
+            <div class="content" style="background-color: rgba(255,255,255,.7);padding: 30px;">
                 <center>
-                <img src="{{asset('assets/z-techno.png')}}">
-                <h2>e-School Login</h2>
+                <!-- <img src="{{asset('assets/z-techno.png')}}">
+                <h2>e-School Login</h2> -->
+                <img src="{{asset('assets/default.png')}}" width="150px">
+                <h2>SMK Negeri 1 Pulau Rakyat</h2>
                 </center>
                 <div class="container">
                     <div class="row">
@@ -112,8 +115,8 @@
                                         <i class="fa fa-sign-in"></i> Login
                                     </button>
                                     <center>
-                                        <a class="btn btn-link" href="{{ url('/register') }}">Register</a>
-                                        <a class="btn btn-link" href="{{url('/')}}">Back to home</a>
+                                        <p></p>
+                                        Belum punya akun ? Silahkan Daftar <a href="{{ url('/register') }}">disini</a>
                                     </center>
                                 </div>
                             </form>

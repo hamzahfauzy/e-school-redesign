@@ -1,7 +1,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm z-techno-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{asset('assets/z-techno.png')}}" width="50px" style="margin-top: -3px"> <span>&nbsp;&nbsp; SCHOOL</span>
+                    <img src="{{asset('assets/default.png')}}" width="50px" style="margin-top: -3px"> <span style="font-weight: bold;">&nbsp;&nbsp; SMK Negeri 1 Pulau Rakyat</span>
                 </a>
                 <button class="navbar-toggler" type="button" onclick="toggleLeftSidebar()">
                     <i class="fa fa-bars fa-lg"></i>

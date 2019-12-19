@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }} @yield('site-title')</title>
+    <link rel="shortcut icon" href="{{asset('assets/default.png')}}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +19,12 @@
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+    window.id = 0
+    window.all_posts = []
+    window.all_chats = []
+    window.current_page = 1
+    </script>
 </head>
 <body>
     <div id="app">

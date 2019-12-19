@@ -66,6 +66,7 @@
 		            			</td>
 		            			<td>
 		            				<span class="badge badge-success">{{$value['question']->type}}</span>
+		            				@if(!empty($value['answer']))
 		            				@if($value['answer']->score > 0 && $value['question']->type == 'Pilihan Berganda')
 		            				<label class="badge badge-primary"><i class="fa fa-check"></i></label>
 		            				@elseif($value['answer']->score > 0 && $value['question']->type == 'Essay' && $examStudent->pivot->status == 3)
@@ -76,6 +77,9 @@
 		            				<label class="badge badge-warning">Belum di Nilai</label>
 		            				@else
 		            				<label class="badge badge-danger"><i class="fa fa-times"></i> Jawaban Salah</label>
+		            				@endif
+		            				@else
+		            				<label class="badge badge-danger"><i class="fa fa-times"></i> Tidak terjawab</label>
 		            				@endif
 		            				<br>
 
@@ -91,16 +95,16 @@
 		            				<label>Jawaban:</label><br>
 		            				@if($value['question']->type == 'Essay')
 		            				<p>
-		            					{{$value['answer']->question_answer_text}}<br>
+		            					{!! !empty($value['answer']) ? $value['answer']->question_answer_text : '<i>Tidak terjawab</i>' !!}<br>
 		            				</p>
 		            				@else
-		            					@if (filter_var($value['answer']->answer->title, FILTER_VALIDATE_URL))
+		            					@if (!empty($value['answer']) && filter_var($value['answer']->answer->title, FILTER_VALIDATE_URL))
 		            						<div class="h_iframe">
 											    <iframe src="{{$value['question']->description}}" frameborder="0" allowfullscreen></iframe>
 											</div>
 		            					@else
 			            				<p>
-			            					{{$value['answer']->answer->title}}<br>
+			            					{!! !empty($value['answer']) ? $value['answer']->answer->title : '<i>Tidak terjawab</i>' !!}<br>
 			            				</p>
 		            					@endif
 		            				@endif

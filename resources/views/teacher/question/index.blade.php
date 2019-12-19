@@ -32,7 +32,11 @@
 	            			</td>
 	            			<td>
 	            				<span class="badge badge-success">{{$question->type}}</span><br>
+	            				@if($question->type == 'Essay')
+	            				<a href="javascript:void(0)"><b>{{$question->title}}</b></a>
+	            				@else
 	            				<a href="{{route('teachers.questions.show', $question->id)}}"><b>{{$question->title}}</b></a>
+	            				@endif
 	            				<p>{{nl2br($question->description)}}</p>
 	            				<form method="POST" action="{{route('teachers.questions.delete')}}">
 								    {{ csrf_field() }}

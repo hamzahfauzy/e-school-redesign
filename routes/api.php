@@ -25,11 +25,18 @@ Route::prefix('v1')->group(function(){
 		Route::post('logout', 'Api\AuthController@logout');
 	});
 
+    Route::get('retrieve-posts/{user}','Api\HomeController@retrievePosts');
+    Route::get('retrieve-chats/{user}','Api\HomeController@retrieveChats');
     Route::get('school/get/{school}/majors','Api\HomeController@findMajors');
     Route::get('school/get/{school}/majors/{major}/classrooms','Api\HomeController@findClassrooms');
+    Route::get('load-single-post/{user}/{post}','Api\HomeController@loadSinglePost');
+    Route::get('load-comments/{post}','Api\HomeController@loadComments');
     Route::get('school/{keyword}','Api\HomeController@findSchool');
+    Route::post('school/find/users','Api\HomeController@findUsers');
     Route::post('finish-registration','Api\HomeController@finishRegistration');
-    Route::post('get-posts','Api\HomeController@getPosts');
+    Route::post('chats','Api\HomeController@chats');
+    Route::post('post-chats','Api\HomeController@postChat');
+    Route::post('get-posts','Api\HomeController@getPosts')->name('api.get-posts');
     Route::post('save-post','Api\HomeController@savePost');
     Route::post('save-comment','Api\HomeController@saveComment');
 

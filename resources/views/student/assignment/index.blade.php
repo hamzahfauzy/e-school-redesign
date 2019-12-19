@@ -1,71 +1,11 @@
 @extends('layouts.dashboard')
-@section('home-active','sidebar-active')
+@section('students.assignments.index','sidebar-active')
 @section('site-title','- Dashboard')
 
 @section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 col-lg-9">
-            <div style="overflow: hidden;">
-                <div class="content-overlay" style="display:none;position: absolute;background-color: rgba(0,0,0,0.5);">
-                    <center>
-                    <p style="margin-top: 110px;color: #FFF;">Membagikan post...</p>
-                    </center>
-                </div>
-            	@if(auth()->user()->isRole('siswa'))
-                <div class="content-wrapper">
-                	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
-                	<form method="post" class="form-posts" enctype="multipart/form-data" onsubmit="savePost(this); return false">
-                		<div class="form-group posts-group">
-                			<textarea name="contents" class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
-                            <!-- <div class="z-techno-btn-group">
-                                <button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
-                                <button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
-                            </div> -->
-                			<select class="form-control z-techno-el select2" name="post_as">
-                                <option value="Semua Orang">Semua Orang</option>
-                				<option value="Catatan Pribadi">Catatan Pribadi</option>
-                				<option value="Teman Sekelas">Teman Sekelas</option>
-                			</select>
-                		</div>
-                		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
-                	</form>
-                </div>
-                @else
-                <div class="content-wrapper">
-                	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
-                	<form method="post" class="form-posts" enctype="multipart/form-data" onsubmit="savePost(this); return false">
-                		<div class="form-group posts-group">
-                			<textarea name="contents" class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
-                			<!-- <div class="z-techno-btn-group">
-                				<button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
-                				<button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
-                			</div> -->
-                			<select name="post_as" class="form-control z-techno-el select2" onchange="postType.style.display = 'none'; if(this.value != 'Catatan Pribadi' && this.value != 'Semua Orang' && this.value != '') postType.style.display = 'block'" required="">
-                				<!-- <option value="">Bagikan Ke / Sebagai</option> -->
-                				<option value="Semua Orang">Semua Orang</option>
-                                <option value="Catatan Pribadi">Catatan Pribadi</option>
-                				<option value="Pengumuman">Pengumuman</option>
-                                <option value="Tugas">Tugas</option>
-                                <option value="Materi">Materi</option>
-                			</select>
-                			<select class="form-control z-techno-el select2" id="postType" name="post_as_id" style="display: none;">
-                				@foreach(auth()->user()->classrooms as $classroom)
-                                <option value="{{$classroom->id}}">{{$classroom->name}}</option>
-                                @endforeach
-                			</select>
-                			<div style="display: none">
-                				<input type="file" name="file" id="fileUploadPost" onchange="fileUploadPostBtn.innerHTML = '1 File Terpilih'">
-                				<input type="file" name="gambar" id="gambarUploadPost" onchange="gambarUploadPostBtn.innerHTML = '1 Gambar Terpilih'">
-                			</div>
-                		</div>
-                		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
-                	</form>
-                </div>
-                @endif
-            </div>
-            <br>
-
             <div class="post-list"></div>
         </div>
 
@@ -83,7 +23,7 @@ async function loadPosts(url = false)
 {
     $('.post-list').html("Loading...")
     if(!url)
-        url = window.config.getApiUrl()+'/get-posts'
+        url = window.config.getApiUrl()+'/get-posts?filter=Tugas'
     let response = await fetch(url,{
         method:'POST',
         headers:{
@@ -135,6 +75,7 @@ async function savePost(el)
         // await loadPosts()
         savePostStatus = true
         el.reset()
+        $('select[name=post_as]').val('').change()
     }
     overlay.css('display','none')
     return false
@@ -155,7 +96,6 @@ async function saveComment(el)
             contents:frm.find('textarea[name=contents]').val(),
         })
     })
-
     if(frm.find('input[name=type]') != undefined && frm.find('input[name=type]').val() == 'Tugas')
     {
         let loadPost = await fetch(window.config.getApiUrl()+'/load-single-post/{{auth()->user()->id}}/'+frm.find('input[name=post_id]').val())
@@ -164,7 +104,6 @@ async function saveComment(el)
     }
     else
     {
-
         let data = await response.json()
         el.reset()
         document.getElementById('btn-show-comment-'+frm.find('input[name=post_id]').val()).click()
@@ -175,13 +114,6 @@ async function saveComment(el)
     // if(data.success)
     //     await loadPosts()
     return false
-}
-
-async function loadComments(id)
-{
-    let loadComments = await fetch(window.config.getApiUrl()+'/load-comments/'+id)
-    let responseComments = await loadComments.json()
-    $('#post-comment-'+id).html(responseComments.html)
 }
 
 
@@ -207,9 +139,9 @@ function setupStream() {
     }
 
     if(window.current_page > 1)
-        es = new EventSource(window.config.getApiUrl()+'/retrieve-posts/{{auth()->user()->id}}?page='+window.current_page);
+        es = new EventSource(window.config.getApiUrl()+'/retrieve-posts/{{auth()->user()->id}}?filter=Tugas&page='+window.current_page);
     else
-        es = new EventSource(window.config.getApiUrl()+'/retrieve-posts/{{auth()->user()->id}}');
+        es = new EventSource(window.config.getApiUrl()+'/retrieve-posts/{{auth()->user()->id}}?filter=Tugas');
 
     es.addEventListener('newPosts', event => {
         let data = event.data;

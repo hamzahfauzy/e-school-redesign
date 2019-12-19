@@ -68,15 +68,15 @@
 								</form>
 								@endif
 	            				<span class="badge badge-success">{{$exam->type}}</span>
-	            				@if(\Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)))
+	            				@if($exam->start_at && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)))
 	            				<span class="badge z-techno-primary">{{$exam->type}} akan dimulai pada {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)}}</span>
 	            				@endif
 
-	            				@if(\Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)) && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
+	            				@if($exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)) && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
 		                        <span class="badge badge-success">{{$exam->type}} sedang berlangsung</span>
 		                        @endif
 
-	            				@if(\Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
+	            				@if($exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
 	            				<span class="badge badge-primary">{{$exam->type}} Selesai</span>
 	            				@endif
 	            				<br>

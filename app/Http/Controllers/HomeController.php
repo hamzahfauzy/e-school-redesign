@@ -26,49 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = [];
-        if(auth()->user()->isRole('siswa'))
-        {
-            $now = \Carbon\Carbon::now();
-            $exams = Exam::where('start_at','<',$now)->where('finish_at','>',$now)->get();
-
-            foreach($exams as $exam)
-            {
-                $checker = $exam->students()->where('student_id',auth()->user()->id)->first();
-                if(!empty($checker))
-                    return redirect()->route('students.exams.show', $exam->id);
-            }
-
-            $data = auth()->user()->getClassroom[0]->exams()->where('start_at','!=','NULL')->get();
-            foreach($data as $val)
-            {
-                if($val->post())
-                    $posts[] = $val->post()->id;
-            }
-
-            $post = Post::whereIn('post_as',['Pengumuman','Tugas','Materi'])->where('post_as_id',auth()->user()->getClassroom[0]->id)->get();
-            foreach($post as $p)
-                $posts[] = $p->id;
-        }
-
-        if(auth()->user()->isRole('guru'))
-        {
-            $data = auth()->user()->exams()->where('start_at','!=','NULL')->get();
-            foreach($data as $val)
-            {
-                if($val->post())
-                    $posts[] = $val->post()->id;
-            }
-
-            $post = Post::whereIn('post_as',['Pengumuman','Tugas','Materi'])->where('user_id',auth()->user()->id)->get();
-            foreach($post as $p)
-                $posts[] = $p->id;
-        }
-
-        $posts = Post::whereIn('id',$posts)->orderby('created_at','desc')->paginate();
-        return view('home',[
-            'posts' => $posts
-        ]);
+        return view('home');
     }
 
     public function profile()
@@ -147,5 +105,15 @@ class HomeController extends Controller
             return redirect()->route('home');
 
         return view('step-1');
+    }
+
+    function chats()
+    {
+        return view('chats');
+    }
+
+    function lockerStorage()
+    {
+        return view('locker-storage');
     }
 }

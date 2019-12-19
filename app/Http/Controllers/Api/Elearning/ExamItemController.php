@@ -25,7 +25,9 @@ class ExamItemController extends Controller
         $exam = Exam::find($request->exam_id);
         foreach($answers as $key => $value)
         {
-
+            if($value == null)
+                continue;
+            
             $item = $exam->questions()->where('question_id',$key)->first();
             $answer = ExamAnswer::where('exam_item_id',$item->pivot->id)
                                     ->where('student_id',$request->student_id)

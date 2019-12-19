@@ -34,10 +34,10 @@ class Exam extends Model
     	return $this->belongsTo(Classroom::class);
     }
 
-    function student()
-    {
-        return $this->hasOne(ExamStudent::class);
-    }
+    // function student()
+    // {
+    //     return $this->hasOne(ExamStudent::class);
+    // }
 
     function post()
     {

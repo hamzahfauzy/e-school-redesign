@@ -1,11 +1,10 @@
-            @foreach($posts as $post)
             @if($user->isRole('siswa'))
             @if($post->exam())
             <?php 
             $exam=$post->exam();
             $exam->student = $exam->students()->where('student_id',$user->id)->first();
             ?>
-            <div class="content-wrapper post-id-{{$post->id}}">
+            
                 <div class="author-section">
                     <div class="author-picture">
                         @if($exam->teacher->picture)
@@ -48,10 +47,9 @@
                     @endif
                     @endif
                 </div>
-            </div>
-            <br>
+            
             @else
-            <div class="content-wrapper post-id-{{$post->id}}">
+            
                 <div class="author-section">
                     <div class="author-picture">
                         @if($post->user->picture)
@@ -63,11 +61,7 @@
                     <div class="author-name">
                         <h4 style="margin:0;"><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$post->user->name}}</a></h4>
                         <small>{{$post->updated_at->format('j F Y H:i:s')}}</small><br>
-                        @if($post->post_as == 'Tugas')
-                        <span class="badge badge-success"><a href="{{route('students.assignments.index')}}" style="color: #FFF;text-decoration: none;">{{$post->post_as}}</a></span>
-                        @else
                         <span class="badge badge-success">{{$post->post_as}}</span>
-                        @endif
                     </div>
                 </div>
 
@@ -75,6 +69,7 @@
                     <?php 
                     $text = $post->contents;
                     $html_links = preg_replace_callback('"\b(https?://\S+)"', 'App\MyHelper::get', $text);
+                    // $html_links = preg_replace('"\b(https?://\S+)"', '<a href="$1" target="_blank">$1</a>', $text);
                     $post->contents = $html_links;
                     ?>
                     <p>{!! nl2br($post->contents) !!}</p>
@@ -157,13 +152,12 @@
 
                     @endif
                 </div>
-            </div>
-            <br>
+
             @endif
             @elseif($user->isRole('guru'))
             @if($post->exam())
             <?php $exam=$post->exam() ?>
-            <div class="content-wrapper post-id-{{$post->id}}">
+            
                 <div class="author-section">
                     <div class="author-picture">
                         @if($exam->teacher->picture)
@@ -203,10 +197,9 @@
                     <a href="{{route('teachers.exams.show',$exam->id)}}" class="btn z-techno-btn btn-primary"><i class="fa fa-eye"></i> Lihat Hasil</a>
                     @endif
                 </div>
-            </div>
-            <br>
+
             @else
-            <div class="content-wrapper post-id-{{$post->id}}">
+            
                 <div class="author-section">
                     <div class="author-picture">
                         @if($post->user->picture)
@@ -218,11 +211,7 @@
                     <div class="author-name">
                         <h4 style="margin:0;"><a href="{{$user->id == $post->user->id ? route('profile') : '#'}}">{{$post->user->name}}</a></h4>
                         <small>{{$post->updated_at->format('j F Y H:i:s')}}</small><br>
-                        @if($post->post_as == 'Tugas')
-                        <span class="badge badge-success">{{$post->post_as}} > {{$post->classroom()->name}}</span>
-                        @else
                         <span class="badge badge-success">{{$post->post_as}}</span>
-                        @endif
                     </div>
                 </div>
 
@@ -238,7 +227,7 @@
 
                 <div class="post-meta" id="post-meta-{{$post->id}}">
                     @if($post->post_as == 'Tugas')
-                    <button class="btn z-techno-btn z-techno-primary" onclick="loadComments('{{$post->id}}')" data-toggle="modal" data-target="#modal{{$post->id}}">Lihat Jawaban</button>
+                    <button class="btn z-techno-btn z-techno-primary" data-toggle="modal" data-target="#modal{{$post->id}}">Lihat Jawaban</button>
                     <!-- Modal -->
                     <div class="modal fade" id="modal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -249,7 +238,14 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body" id="post-comment-{{$post->id}}">
+                                <div class="modal-body">
+                                    @foreach($post->comments as $comment)
+                                    <div style="padding: 15px;border:1px solid #eaeaea;">
+                                        <a href="#"><b>{{$comment->user->name}}</b></a><br>
+                                        <small>{{$comment->created_at->format('j F Y H:i:s')}}</small>
+                                        <p>{{$comment->contents}}</p>
+                                    </div>
+                                    @endforeach
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn z-techno-btn btn-secondary" data-dismiss="modal">Close</button>
@@ -296,10 +292,6 @@
 
                     @endif
                 </div>
-            </div>
-            <br>
-            @endif
-            @endif
-            @endforeach
 
-            {{$posts->links()}}
+            @endif
+            @endif
