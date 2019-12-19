@@ -1,9 +1,10 @@
 window.config = {
 	baseUrl: () => {
-		return 'http://eschool.com'
+		// return 'http://eschool.com'
+		return 'http://eschool.smkn1pulaurakyat.sch.id'
 	},
 	getApiUrl : () => {
-		return 'http://eschool.com/api/v1'
+		return 'http://eschool.smkn1pulaurakyat.sch.id/api/v1'
 	}
 } 
 
