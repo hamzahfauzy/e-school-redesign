@@ -47,9 +47,12 @@
 	            				@if($exam->student && ($exam->student->pivot->status == 3 || $exam->student->pivot->status == 2))
 	            				<a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">Nilai Kamu {{$exam->totalScore}}</a>
 	            				<a href="{{route('students.exams.result',[$exam->id,auth()->user()->id])}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-eye"></i> Hasil</a>
-	            				@else
+	            				@endif
+
+	            				@if($exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
 	            				<a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">{{$exam->type}} telah selesai dan kamu tidak mengikutinya</a>
 	            				@endif
+
 		                        @if($exam->start_at != null && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)) && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
 		                        <a href="{{route('students.exams.show', $exam->id)}}" class="btn z-techno-btn btn-success"><i class="fa fa-eye"></i> Ikuti {{$exam->type}}</a>
 		                        @endif
