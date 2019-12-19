@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function () {
+	return redirect('/home');
     return view('welcome');
 });
 
