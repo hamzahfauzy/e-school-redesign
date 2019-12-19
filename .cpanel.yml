@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/ztew5887/public_html/eschool
+    - /bin/cp -R * $DEPLOYPATH
