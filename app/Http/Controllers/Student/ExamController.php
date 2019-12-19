@@ -17,7 +17,15 @@ class ExamController extends Controller
     public function index()
     {
         //
-        $exams = auth()->user()->getClassroom[0]->exams()->orderby('id','desc')->paginate(10);
+        $exams = auth()->user()->getClassroom[0]->exams()->orderby('id','desc')->get();
+        $ids = [];
+        foreach($exams as $exam)
+        {
+            if($exam->start_at)
+                $ids[] = $exam->id;
+        }
+
+        $exams = Exam::whereIn('id',$ids)->orderby('id','desc')->paginate(10);
         foreach($exams as $exam)
         {
             $exam->student = $exam->students()->where('student_id',auth()->user()->id)->first();
