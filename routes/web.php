@@ -153,7 +153,9 @@ Route::middleware(['auth','checkActive'])->group(function(){
 				Route::get('show/{exam}/result/{student}','ExamController@result')->name('result');
 			});
 			Route::get('/assignments','AssignmentController@index')->name('assignments.index');
-			Route::get('/virtual-class','HomeController@index')->name('virtual-class.index');
+			Route::get('/virtual-class',function(){
+				return "<h2>Coming soon</h2>";
+			})->name('virtual-class.index');
 		});
 
 		Route::middleware('role:guru')->prefix('teacher')->namespace('Teacher')->name('teachers.')->group(function(){
