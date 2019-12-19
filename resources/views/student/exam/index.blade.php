@@ -50,7 +50,7 @@
 	            				@else
 	            				<a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">{{$exam->type}} telah selesai dan kamu tidak mengikutinya</a>
 	            				@endif
-		                        @if(\Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)) && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
+		                        @if($exam->start_at != null && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->start_at)) && \Carbon\Carbon::now()->lt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
 		                        <a href="{{route('students.exams.show', $exam->id)}}" class="btn z-techno-btn btn-success"><i class="fa fa-eye"></i> Ikuti {{$exam->type}}</a>
 		                        @endif
 	            			</td>
