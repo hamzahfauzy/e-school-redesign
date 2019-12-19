@@ -97,7 +97,7 @@
                       <strong>{{ $message }}</strong>
                   </div>
                 @endif
-                <form method="post" id="formUpload" action="{{route('sistem-informasi.schools.upload')}}" enctype="multipart/form-data">
+                <form method="post" id="formUploadSchoolPicture" action="{{route('sistem-informasi.schools.upload')}}" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group">
                         @if(auth()->user()->customer->school->picture)
@@ -107,7 +107,7 @@
                         <br>
                         <button type="button" class="btn z-techno-btn z-techno-primary" onclick="picture.click()">Upload</button>
                         @endif
-                        <input type="file" onchange="formUpload.submit()" id="picture" class="form-control z-techno-el @error('picture') is-invalid @enderror" name="picture" style="display: none;">
+                        <input type="file" onchange="formUploadSchoolPicture.submit()" id="picture" class="form-control z-techno-el @error('picture') is-invalid @enderror" name="picture" style="display: none;">
 
                         @error('picture')
                             <span class="invalid-feedback" role="alert">
