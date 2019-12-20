@@ -113,7 +113,7 @@
 		            				<br>
 		            				<div class="form-group">
 		            					<label>Nilai</label>
-		            					<select class="form-control z-techno-el" name="nilai[{{$value['answer']->id}}]" required="">
+		            					<select class="form-control z-techno-el" name="nilai[{{$value['answer'] ? $value['answer']->id : ''}}]" required="">
 		            						<option value="">- Pilih -</option>
 		            						@foreach([0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1] as $nilai)
 		            						<option value="{{$nilai}}">{{$nilai}}</option>
