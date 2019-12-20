@@ -95,6 +95,7 @@ export default {
             this.sendAnswer()
         },
         async finishExam(){
+            await this.sendAnswer()
             var n = window.confirm('Apakah anda yakin menyelesaikan kuis ini ?')
             if(!n)
                 return
