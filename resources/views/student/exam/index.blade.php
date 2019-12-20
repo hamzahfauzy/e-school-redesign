@@ -44,12 +44,12 @@
 	            					Pilihan Berganda : {{$exam->questions()->where('type','Pilihan Berganda')->count()}}<br>
 	            					Essay : {{$exam->questions()->where('type','Essay')->count()}}
 	            				</p>
-	            				@if($exam->student && ($exam->student->pivot->status == 3 || $exam->student->pivot->status == 2))
+	            				@if($exam->student && (($exam->student->pivot->status == 3 || $exam->student->pivot->status == 2) || ($exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))))
 	            				<a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">Nilai Kamu {{$exam->totalScore}}</a>
 	            				<a href="{{route('students.exams.result',[$exam->id,auth()->user()->id])}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-eye"></i> Hasil</a>
 	            				@endif
 
-	            				@if($exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
+	            				@if(!$exam->student && $exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
 	            				<a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">{{$exam->type}} telah selesai dan kamu tidak mengikutinya</a>
 	            				@endif
 
