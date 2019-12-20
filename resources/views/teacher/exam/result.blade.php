@@ -93,9 +93,9 @@
 		            				@endif
 		            				
 		            				<label>Jawaban:</label><br>
-		            				@if($value['question']->type == 'Essay')
+		            				@if($value['question']->type == 'Essay') 
 		            				<p>
-		            					{!! !empty($value['answer']) ? $value['answer']->question_answer_text : '<i>Tidak terjawab</i>' !!}<br>
+		            					{!! !empty($value['answer']) ? nl2br($value['answer']->question_answer_text) : '<i>Tidak terjawab</i>' !!}<br>
 		            				</p>
 		            				@else
 		            					@if (!empty($value['answer']) && filter_var($value['answer']->answer->title, FILTER_VALIDATE_URL))
