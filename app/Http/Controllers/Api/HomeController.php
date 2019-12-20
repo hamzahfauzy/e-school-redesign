@@ -157,9 +157,11 @@ class HomeController extends Controller
     {
     	$user = User::find($request->user_id);
     	$role = Role::where('slug',$request->role)->first();
-    	$user->roles()->attach($role);
+        if(!$user->roles()->wherePivot('role_id',$role->id)->first())
+    	   $user->roles()->attach($role);
     	$school = SchoolProfile::find($request->school);
-    	$user->school()->attach($school);
+        if(!$user->school()->wherePivot('school_id',$school->id)->first())
+    	   $user->school()->attach($school);
 
     	if($request->role == 'siswa')
     	{

@@ -42,7 +42,7 @@ class User extends Authenticatable
     ];
 
     public function roles(){
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->withPivot('id','user_id','role_id');
     }
 
     public function isRole($role_name)
@@ -56,7 +56,7 @@ class User extends Authenticatable
     }
 
     public function school(){
-        return $this->belongsToMany(SchoolProfile::class,'school_users', 'user_id', 'school_id', 'id');
+        return $this->belongsToMany(SchoolProfile::class,'school_users', 'user_id', 'school_id', 'id')->withPivot('id','user_id','school_id');;
     }
 
     public function customer(){
