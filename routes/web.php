@@ -208,9 +208,7 @@ Route::middleware(['auth','checkActive'])->group(function(){
 		});
 
 		Route::middleware('role:wali_kelas')->prefix('counselor')->namespace('Counselor')->name('counselors.')->group(function(){
-			Route::get('/students',function(){
-				return "<h2>Coming soon</h2>";
-			})->name('students.index');
+			Route::get('/students','CounselorController@students')->name('students.index');
 			Route::get('/questions',function(){
 				return "<h2>Coming soon</h2>";
 			})->name('assessments.index');

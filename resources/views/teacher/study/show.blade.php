@@ -1,5 +1,6 @@
 @extends('layouts.dashboard')
-@section('sistem-informasi.studies.index','sidebar-active')
+@section('teachers.study.index','sidebar-active')
+@section('site-title','- Tampil Mata Pelajaran')
 
 @section('content')
 <div class="container-fluid">
