@@ -42,7 +42,8 @@
                     @else
                     @if($exam->student && ($exam->student->pivot->status == 3 || $exam->student->pivot->status == 2))
                     <a href="{{route('students.exams.result',[$exam->id,$user->id])}}" class="btn z-techno-btn btn-primary"><i class="fa fa-eye"></i> Lihat Hasil</a>
-                    @else
+                    @endif
+                    @if($exam->start_at && $exam->finish_at && \Carbon\Carbon::now()->gt(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $exam->finish_at)))
                     <a href="javascript:void()" class="btn z-techno-btn z-techno-secondary">{{$exam->type}} telah selesai dan kamu tidak mengikutinya</a>
                     @endif
                     @endif
