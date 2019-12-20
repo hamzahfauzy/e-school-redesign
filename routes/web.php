@@ -159,6 +159,11 @@ Route::middleware(['auth','checkActive'])->group(function(){
 		});
 
 		Route::middleware('role:guru')->prefix('teacher')->namespace('Teacher')->name('teachers.')->group(function(){
+			Route::prefix('study')->name('study.')->group(function(){
+				Route::get('/','StudyController@index')->name('index');
+				Route::get('show/{study}/{classroom}','StudyController@show')->name('show');
+			});
+
 			Route::prefix('questions')->name('questions.')->group(function(){
 				Route::get('/','QuestionController@index')->name('index');
 				Route::get('create','QuestionController@create')->name('create');
