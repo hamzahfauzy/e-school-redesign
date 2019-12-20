@@ -50,7 +50,9 @@
                                 <option value="Materi">Materi</option>
                 			</select>
                 			<select class="form-control z-techno-el select2" id="postType" name="post_as_id" style="display: none;">
+                                <?php $ids = [] ?>
                 				@foreach(auth()->user()->classrooms as $classroom)
+                                <?php if(in_array($classroom->id, $ids)) continue; $ids[] = $classroom->id; ?>
                                 <option value="{{$classroom->id}}">{{$classroom->name}}</option>
                                 @endforeach
                 			</select>
