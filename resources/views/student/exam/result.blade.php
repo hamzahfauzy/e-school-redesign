@@ -72,18 +72,18 @@
 	            				@endif
 	            				
 	            				<label>Jawaban:</label><br>
-	            				@if($value['question']->type == 'Essay')
-	            				<p>
-	            					{{$value['answer']->question_answer_text}}<br>
-	            				</p>
-	            				@else
-	            				@if (filter_var($value['answer']->answer->title, FILTER_VALIDATE_URL))
-	            					<div class="h_iframe">
+		            			@if($value['question']->type == 'Essay')
+		            			<p>
+		            				{!! !empty($value['answer']) ? nl2br($value['answer']->question_answer_text) : '<i>Tidak terjawab</i>' !!}<br>
+		            			</p>
+		            			@else
+		            				@if (!empty($value['answer']) && filter_var($value['answer']->answer->title, FILTER_VALIDATE_URL))
+		            					<div class="h_iframe">
 										    <iframe src="{{$value['question']->description}}" frameborder="0" allowfullscreen></iframe>
 										</div>
 		            				@else
 			            			<p>
-			            				{{$value['answer']->answer->title}}<br>
+			            				{!! !empty($value['answer']) ? $value['answer']->answer->title : '<i>Tidak terjawab</i>' !!}<br>
 			            			</p>
 		            				@endif
 		            			@endif
