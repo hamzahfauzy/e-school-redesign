@@ -132,7 +132,7 @@ class ExamController extends Controller
         }
         else
         {
-            if($checker->pivot->status == 2)
+            if($checker->pivot->status == 2 || $checker->pivot->status == 3)
                 return redirect()->route('students.exams.index');
         }
 

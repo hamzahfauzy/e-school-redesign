@@ -1,7 +1,7 @@
 window.config = {
 	baseUrl: () => {
 		// return 'http://eschool.com'
-		return '/'
+		return ''
 	},
 	getApiUrl : () => {
 		return '/api/v1'
