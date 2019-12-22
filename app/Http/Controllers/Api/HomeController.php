@@ -166,7 +166,8 @@ class HomeController extends Controller
     	if($request->role == 'siswa')
     	{
     		$classroom = Classroom::find($request->classroom);
-    		$user->getClassroom()->attach($classroom);
+            if(!$user->getClassroom()->wherePivot('classroom_id',$classroom->id)->first())
+                $user->getClassroom()->attach($classroom);
     	}
 
     	return response()->json(['success' => 1]);

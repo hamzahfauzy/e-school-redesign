@@ -56,7 +56,7 @@ class User extends Authenticatable
     }
 
     public function school(){
-        return $this->belongsToMany(SchoolProfile::class,'school_users', 'user_id', 'school_id', 'id')->withPivot('id','user_id','school_id');;
+        return $this->belongsToMany(SchoolProfile::class,'school_users', 'user_id', 'school_id', 'id')->withPivot('id','user_id','school_id');
     }
 
     public function customer(){
@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     public function getClassroom()
     {
-        return $this->belongsToMany(Classroom::class,'classroom_student');
+        return $this->belongsToMany(Classroom::class,'classroom_student')->withPivot('id','user_id','classroom_id');
     }
 
     public function exams()
