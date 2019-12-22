@@ -307,6 +307,25 @@ main {
 	word-break: break-word;
 }
 
+.user-container {
+	border:1px solid #eaeaea;
+	padding:15px;
+	margin-bottom: 10px;
+	overflow: auto;
+}
+
+.user-container .user-picture {
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin-right: 10px;
+}
+
+.user-container .user-picture img {
+	object-fit: cover;
+	object-position: top;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

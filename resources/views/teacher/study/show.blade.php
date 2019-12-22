@@ -25,29 +25,30 @@
 	            	</tr>
 	            </table>
 	            <p></p>
-	            <div class="table-responsive">
-	            	<table class="table table-striped">
-	            		<tr>
-	            			<th width="50px">#</th>
-	            			<th>Siswa</th>
-	            			<th></th>
-	            		</tr>
-	            		@if(empty($study->pivot->classroom->students) || count($study->pivot->classroom->students) == 0)
-	            		<tr>
-	            			<td colspan="3"><i>Data not found!</i></td>
-	            		</tr>
-	            		@endif
-
-	            		@foreach($study->pivot->classroom->students as $key => $student)
-	            		<tr>
-	            			<td align="center">{{++$key}}</td>
-	            			<td>{{$student->name}}</td>
-	            			<td>
-
-	            			</td>
-	            		</tr>
-	            		@endforeach
-	            	</table>
+	            @if(empty($study->pivot->classroom->students) || count($study->pivot->classroom->students) == 0)
+	            <center>
+	            	<i>Data not found!</i>
+	            </center>
+	            @endif
+	            <div class="row">
+	            	@foreach($study->pivot->classroom->students as $key => $student)
+	            	<div class="col-sm-12 col-md-6">
+	            		<div class="user-container">
+	            			<div class="user-picture">
+	            				@if($student->picture)
+	            				<img src="{{asset('uploads/schools/'.$student->school[0]->id.'/'.$student->id.'/'.$student->picture)}}" width="100%">
+	            				@else
+	            				<img src="{{asset('assets/default.png')}}" width="100%">
+	            				@endif
+	            			</div>
+	            			<div class="user-detail">
+	            				<b>{{$student->name}}</b>
+	            				<br>
+	            				<i>{{$student->email}}</i>
+	            			</div>
+	            		</div>
+	            	</div>
+	            	@endforeach
 	            </div>
 	        </div>
         </div>
