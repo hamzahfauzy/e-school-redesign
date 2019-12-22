@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Model\Post;
 use App\Model\Elearning\Exam;
+use App\Model\LockerStorage\{Folder,File};
 
 class HomeController extends Controller
 {
@@ -112,8 +113,21 @@ class HomeController extends Controller
         return view('chats');
     }
 
-    function lockerStorage()
+    function lockerStorage($folder = false)
     {
-        return view('locker-storage');
+        $parent = $folder ? Folder::find($folder) : [];
+        return view('locker-storage',[
+            'folder' => $folder ? $folder : 0,
+            'parent' => $parent
+        ]);
+    }
+
+    function download(File $file)
+    {
+        if($file->visibility || $file->user_id == auth()->user()->id)
+            return response()->streamDownload(function () use ($file) {
+                echo file_get_contents($file->url);
+            }, $file->name);
+        return abort(403);
     }
 }

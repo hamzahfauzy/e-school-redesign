@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\LockerStorage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\LockerStorage\{Folder,File,FileShare};
+use App\User;
 
 class FileController extends Controller
 {
@@ -13,8 +14,6 @@ class FileController extends Controller
     	$folder = $folder ? $folder : 0;
     	$folders = Folder::where('user_id',$request->user_id)->where('parent_id',$folder)->get();
     	$files = File::where('user_id',$request->user_id)->where('folder_id',$folder)->get();
-    	foreach($files as $file)
-    		$file->storage_url = Storage::url($file->url);
 
     	return response()->json(['folders'=>$folders,'files'=>$files],200);
 
@@ -39,8 +38,16 @@ class FileController extends Controller
         {
             foreach($request->file('file') as $file)
             {
+                $user = User::find($request->user_id);
+
+                $destinationPath = public_path()."/uploads/schools/".$user->school[0]->id.'/'.$request->user_id;
+                if(!file_exists($destinationPath))
+                    mkdir($destinationPath);
+
                 $name=$file->getClientOriginalName();
-                $url = $file->storeAs('public/files/'.$request->user_id, $name);
+                $file->move($destinationPath, $name);
+
+                $url = $destinationPath.'/'.$name;
 
     			$model = new File;
                 $model->create([
@@ -53,20 +60,38 @@ class FileController extends Controller
             }
         }
 
-    	return 1;
+    	return response()->json([
+            'success' => 1
+        ],200);
     }
 
     function share(Request $request){
         $input = $request->only('file_id','user_id');
         $fs = FileShare::create($input);
-        return response()->json(1,200);
+        return response()->json([
+            'success' => 1
+        ],200);
     }
 
     function delete(Request $request)
     {
         $file = File::where('id',$request->id)->where('user_id',$request->user_id)->first();
-        Storage::delete($file->url);
+        unlink($file->url);
         $file->delete();
-        return 1;
+        return response()->json([
+            'success' => 1
+        ],200);
+    }
+
+    function updateVisibility(Request $request)
+    {
+        $file = File::where('id',$request->id)->where('user_id',$request->user_id)->first();
+        $visibility = $file->visibility ? 0 : 1;
+        $file->update([
+            'visibility' => $visibility
+        ]);
+        return response()->json([
+            'success' => 1
+        ],200);
     }
 }

@@ -134,9 +134,10 @@ Route::prefix('v1')->group(function(){
         Route::post('all','Api\LockerStorage\FileController@all');
         Route::get('{id}','Api\LockerStorage\FileController@single');
         Route::post('index/{folder}','Api\LockerStorage\FileController@index');
+        Route::post('update-visibility','Api\LockerStorage\FileController@updateVisibility');
         Route::post('upload','Api\LockerStorage\FileController@upload');
         Route::post('share','Api\LockerStorage\FileController@share');
-        Route::delete('delete','Api\LockerStorage\FileController@delete');
+        Route::post('delete','Api\LockerStorage\FileController@delete');
     });
 
     Route::prefix('share')->group(function(){

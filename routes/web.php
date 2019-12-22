@@ -24,10 +24,13 @@ Route::middleware(['auth','checkActive'])->group(function(){
 	Route::middleware('checkSchool')->group(function(){
 		Route::get('/home', 'HomeController@index')->name('home');
 		Route::get('/chats','HomeController@chats')->name('chats.index');
-		// Route::get('/locker-storage','HomeController@lockerStorage')->name('locker-storage.index');
-		Route::get('/locker-storage',function(){
-				return "<h2>Coming soon</h2>";
-			})->name('locker-storage.index');
+		Route::get('/locker-storage','HomeController@lockerStorage')->name('locker-storage.index');
+		Route::get('/locker-storage/download','HomeController@download')->name('locker-storage.download');
+		Route::get('/locker-storage/download/{file}','HomeController@download')->name('locker-storage.download-file');
+		Route::get('/locker-storage/{folder}','HomeController@lockerStorage')->name('locker-storage.folder');
+		// Route::get('/locker-storage',function(){
+		// 		return "<h2>Coming soon</h2>";
+		// 	})->name('locker-storage.index');
 
 		Route::middleware('role:admin')->prefix('admin')->group(function(){
 			Route::prefix('products')->group(function(){

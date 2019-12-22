@@ -326,6 +326,19 @@ main {
 	object-position: top;
 }
 
+.file-table a {
+	text-decoration: none;
+}
+
+.file-name {
+	color: #f6922d;
+}
+
+.file-panel a {
+	font-size: 12px;
+	font-weight: bold;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

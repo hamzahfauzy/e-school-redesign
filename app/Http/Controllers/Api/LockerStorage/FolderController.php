@@ -22,7 +22,9 @@ class FolderController extends Controller
     		'user_id' => $request->user_id,
     	]);
 
-    	return 1;
+    	return response()->json([
+            'success' => 1
+        ]);
     }
 
     function delete(Request $request)
