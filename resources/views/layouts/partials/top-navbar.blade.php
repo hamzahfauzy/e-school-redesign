@@ -3,9 +3,6 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{asset('assets/default.png')}}" width="50px" style="margin-top: -3px"> <span style="font-weight: bold;">&nbsp;&nbsp; E-School</span>
                 </a>
-                <button class="navbar-toggler" type="button" onclick="toggleLeftSidebar()">
-                    <i class="fa fa-bars fa-lg"></i>
-                </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -48,5 +45,9 @@
                         @endguest
                     </ul>
                 </div>
+
+                <button class="navbar-toggler" type="button" onclick="toggleLeftSidebar()">
+                    <i class="fa fa-bars fa-lg"></i>
+                </button>
             </div>
         </nav>

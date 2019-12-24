@@ -11,6 +11,15 @@ html, body, #app {
 	display: inline;
 }
 
+.navbar-expand-md .navbar-collapse {
+    display: flex!important;
+    flex-basis: auto;
+}
+
+.navbar-expand-md .navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
 .left-sidebar-section {
 	width: 280px;
 	float: left;

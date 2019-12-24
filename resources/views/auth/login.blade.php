@@ -63,6 +63,12 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            @media screen and (max-width: 450px) {
+                .content {
+                    width: auto;
+                }
+            }
         </style>
     </head>
     <body style="background-image: url({{asset('assets/login-bg.jpg')}});background-size: cover;background-repeat: no-repeat;">
