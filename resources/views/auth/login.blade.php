@@ -106,7 +106,7 @@
                                     @endif
                                 </div>
 
-                                <!--
+                                
                                 <div class="form-group">
                                     <center>
                                     <label>
@@ -114,7 +114,7 @@
                                     </label>
                                     </center>
                                 </div>
-                            -->
+                            
 
                                 <div class="form-group">
                                     <button type="submit" class="btn z-techno-btn z-techno-primary btn-block z-techno-login-btn">
