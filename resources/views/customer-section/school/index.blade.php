@@ -74,7 +74,7 @@
 
                     <div class="form-group">
                         <label>ID / NIP / NUPTK</label>
-                        <input type="text" class="form-control z-techno-el @error('headmaster_employee_id') is-invalid @enderror" name="headmaster_employee_id" value="{{ old('headmaster_employee_id') ? old('headmaster_employee_id') : $school->headmaster_employee_id }}" placeholder="Masukkan Nama Sekolah">
+                        <input type="text" class="form-control z-techno-el @error('headmaster_employee_id') is-invalid @enderror" name="headmaster_employee_id" value="{{ old('headmaster_employee_id') ? old('headmaster_employee_id') : $school->headmaster_employee_id }}" placeholder="Masukkan ID / NIP / NUPTK Kepala Sekolah">
 
                         @error('headmaster_employee_id')
                             <span class="invalid-feedback" role="alert">
@@ -83,7 +83,21 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label>Token Dapodik</label>
+                        <input type="text" class="form-control z-techno-el @error('dapodik_token') is-invalid @enderror" name="dapodik_token" value="{{ old('dapodik_token') ? old('dapodik_token') : $school->dapodik_token }}" placeholder="Masukkan Token Dapodik">
+
+                        @error('dapodik_token')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
 	            	<button class="btn z-techno-btn z-techno-primary">Submit</button>
+                    @if($school->dapodik_token)
+                    <button type="button" class="btn z-techno-btn z-techno-secondary btn-cek-dapodik" onclick="cekDapodik('{{$school->school_id}}','{{$school->dapodik_token}}')">Cek Dapodik</button>
+                    @endif
 	            </form>
 	        </div>
         </div>
@@ -101,13 +115,13 @@
                     {{csrf_field()}}
                     <div class="form-group">
                         @if(auth()->user()->customer->school->picture)
-                        <button type="button" class="btn z-techno-btn z-techno-primary" onclick="picture.click()" style="position: absolute;"><i class="fa fa-pencil"></i></button>
+                        <button type="button" class="btn z-techno-btn z-techno-primary" onclick="schoolpicture.click()" style="position: absolute;"><i class="fa fa-pencil"></i></button>
                         <img src="{{asset('uploads/schools/'.auth()->user()->customer->school->id.'/'.auth()->user()->customer->school->picture)}}" width="100%">
                         @else
                         <br>
-                        <button type="button" class="btn z-techno-btn z-techno-primary" onclick="picture.click()">Upload</button>
+                        <button type="button" class="btn z-techno-btn z-techno-primary" onclick="schoolpicture.click()">Upload</button>
                         @endif
-                        <input type="file" onchange="formUploadSchoolPicture.submit()" id="picture" class="form-control z-techno-el @error('picture') is-invalid @enderror" name="picture" style="display: none;">
+                        <input type="file" onchange="formUploadSchoolPicture.submit()" id="schoolpicture" class="form-control z-techno-el @error('picture') is-invalid @enderror" name="picture" style="display: none;">
 
                         @error('picture')
                             <span class="invalid-feedback" role="alert">
@@ -122,4 +136,59 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+var dapodik_url = 'http://localhost:5774/WebService'
+async function cekDapodik(school_id,dapodik_token)
+{
+    try {
+        let getPengguna = await fetch(dapodik_url + '/getPengguna?npsn='+school_id,{
+            headers:{
+                'Authorization':'Bearer '+dapodik_token 
+            }
+        })
+        let responsePengguna = await getPengguna.json()
+    } catch(e) {
+        console.log(e)
+        alert('Servis Dapodik Tidak Di Temukan')
+        return false
+    }
+
+    let getSekolah = await fetch(dapodik_url + '/getSekolah?npsn='+school_id,{
+        headers:{
+            'Authorization':'Bearer '+dapodik_token 
+        }
+    })
+    let responseSekolah = await getSekolah.json()
+
+    let getRombonganBelajar = await fetch(dapodik_url + '/getRombonganBelajar?npsn='+school_id,{
+        headers:{
+            'Authorization':'Bearer '+dapodik_token 
+        }
+    })
+    let responseRombonganBelajar = await getRombonganBelajar.json()
+
+    let getGtk = await fetch(dapodik_url + '/getGtk?npsn='+school_id,{
+        headers:{
+            'Authorization':'Bearer '+dapodik_token 
+        }
+    })
+    let responseGtk = await getGtk.json()
+
+    let getPesertaDidik = await fetch(dapodik_url + '/getPesertaDidik?npsn='+school_id,{
+        headers:{
+            'Authorization':'Bearer '+dapodik_token 
+        }
+    })
+    let responsePesertaDidik = await getPesertaDidik.json()
+
+    console.log({
+        'pengguna':responsePengguna,
+        'sekolah':responseSekolah,
+        'rombel':responseRombonganBelajar,
+        'gtk':responseGtk,
+        'pesertadidik':responsePesertaDidik
+    })
+
+}
+</script>
 @endsection

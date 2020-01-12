@@ -57,6 +57,7 @@ class SchoolController extends Controller
             'phone_number' => $request->phone_number,
             'headmaster_name' => $request->headmaster_name,
             'headmaster_employee_id' => $request->headmaster_employee_id,
+            'dapodik_token' => $request->dapodik_token,
         ]);
         
         return redirect()->route('sistem-informasi.schools.index')->with(['success' => 'Data Sekolah berhasil di update']);

@@ -1,0 +1,4 @@
+this is devnote file
+Jan 12, 2019
+------------
+ALTER TABLE `school_profiles` ADD `dapodik_token` VARCHAR(255) NULL AFTER `picture`;
