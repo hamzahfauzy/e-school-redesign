@@ -51,6 +51,29 @@ class StudyController extends Controller
         return redirect()->route('sistem-informasi.studies.index')->with(['success' => 'Tambah mata pelajaran berhasil!']);
     }
 
+    public function import(Request $request)
+    {
+        $this->validate($request, [
+            'importStudy' => 'required'
+        ]);
+
+        $path = $request->file('importStudy')->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+        unset($data[0]);
+        // $csv_data = array_slice($data, 0, 2);
+        foreach($data as $row)
+        {
+            $name = ucwords(strtolower($row[1]));
+            $existing = auth()->user()->customer->school->studies()->where('name',$name)->first();
+            if(!$existing)
+                auth()->user()->customer->school->studies()->create([
+                    'name' => $name
+                ]);
+        }
+
+        return redirect()->route('sistem-informasi.studies.index')->with(['success' => 'Import mata pelajaran berhasil!']);
+    }
+
     /**
      * Display the specified resource.
      *

@@ -116,6 +116,7 @@ Route::middleware(['auth','checkActive'])->group(function(){
 				Route::get('create','StudyController@create')->name('create');
 				Route::get('edit/{id}','StudyController@edit')->name('edit');
 				Route::post('store','StudyController@store')->name('store');
+				Route::post('import','StudyController@import')->name('import');
 				Route::put('update/{id}','StudyController@update')->name('update');
 				Route::delete('delete/{id}','StudyController@destroy')->name('delete');
 			});

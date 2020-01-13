@@ -9,6 +9,11 @@
 	            <h2>Mata Pelajaran</h2>
 	            <p>
 	            	<a href="{{route('sistem-informasi.studies.create')}}" class="btn z-techno-btn z-techno-primary"><i class="fa fa-plus"></i> Tambah Mata Pelajaran</a>
+	            	<button class="btn z-techno-btn z-techno-secondary" onclick="importStudy.click()"><i class="fa fa-cloud-upload"></i> Import</button>
+	            	<form style="display: none;" method="post" action="{{route('sistem-informasi.studies.import')}}" id="importStudyForm" enctype="multipart/form-data">
+	            		{{csrf_field()}}
+	            		<input type="file" name="importStudy" id="importStudy" onchange="importStudyForm.submit()" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+	            	</form>
 	            </p>
 	            @if ($message = Session::get('success'))
 			      <div class="alert alert-success alert-block">
