@@ -328,11 +328,14 @@ main {
 	height: 100px;
 	float: left;
 	margin-right: 10px;
+	overflow: hidden;
 }
 
 .user-container .user-picture img {
+	width: 100%;
+    height: 100%;
 	object-fit: cover;
-	object-position: top;
+	object-position: center;
 }
 
 .file-table a {
