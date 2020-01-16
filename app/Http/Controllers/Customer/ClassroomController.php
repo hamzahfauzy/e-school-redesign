@@ -151,18 +151,18 @@ class ClassroomController extends Controller
     {
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|string|min:8',
+            'major' => 'required',
+            'teacher' => 'required',
         ]);
 
-        $user = $this->user->find($id);
-        $user->name = $request->input('name'); 
-        $user->email = $request->input('email'); 
-        $user->password = Hash::make($request->password);
+        $classroom = auth()->user()->customer->school->classrooms()->find($id);
+        $classroom->update([
+            'name' => $request->name,
+            'major_id' => $request->major,
+            'user_id' => $request->teacher,
+        ]);
 
-        if($user->save()){
-            return redirect()->route('sistem-informasi.classrooms.index')->with(['success' => 'Kelas telah di update']);
-        }
+        return redirect()->route('sistem-informasi.classrooms.index')->with(['success' => 'Kelas telah di update']);
     }
 
     public function updateStudy(Request $request, $id, $study_id)

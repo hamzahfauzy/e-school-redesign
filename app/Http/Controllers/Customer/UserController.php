@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = auth()->user()->customer->school->users()->paginate(10);
+        $users = auth()->user()->customer->school->users()->orderby('created_at','DESC')->paginate(10);
         return view('customer-section.user.index',[
             'users' => $users
         ]);

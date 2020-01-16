@@ -142,7 +142,7 @@ Route::middleware(['auth','checkActive'])->group(function(){
 				Route::post('store-student','ClassroomController@storeStudent')->name('students.store');
 				Route::post('store-study','ClassroomController@storeStudy')->name('studies.store');
 				Route::post('store','ClassroomController@store')->name('store');
-				Route::post('update/{id}','ClassroomController@update')->name('update');
+				Route::put('update/{id}','ClassroomController@update')->name('update');
 				Route::post('update/{id}/studies/{study_id}','ClassroomController@updateStudy')->name('studies.update');
 				Route::delete('delete/{id}','ClassroomController@destroy')->name('delete');
 				Route::delete('delete/{id}/student/{user_id}','ClassroomController@destroyStudent')->name('students.delete');
