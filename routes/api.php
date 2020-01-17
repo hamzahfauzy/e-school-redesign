@@ -50,23 +50,23 @@ Route::prefix('v1')->group(function(){
         Route::delete('deleteRole','Api\UserController@deleteRole');
     });
 
-    Route::prefix('role')->group(function(){
-        Route::get('', 'Api\RoleController@index');
-        Route::get('{ID}','Api\RoleController@single');
-        Route::get('{ID}/menu','Api\RoleController@menu');
-        Route::get('{ID}/menu/find/{menu}','Api\RoleController@findMenu');
-        Route::post('create','Api\RoleController@create');
-        Route::post('update','Api\RoleController@update');
-        Route::delete('delete','Api\RoleController@delete');
-        Route::post('{ID}/menu/create','Api\RoleController@menuInsert');
-        Route::post('{ID}/menu/update','Api\RoleController@menuUpdate');
-        Route::delete('{ID}/menu/delete','Api\RoleController@deleteMenu');
-    });
+    // Route::prefix('role')->group(function(){
+    //     Route::get('', 'Api\RoleController@index');
+    //     Route::get('{ID}','Api\RoleController@single');
+    //     Route::get('{ID}/menu','Api\RoleController@menu');
+    //     Route::get('{ID}/menu/find/{menu}','Api\RoleController@findMenu');
+    //     Route::post('create','Api\RoleController@create');
+    //     Route::post('update','Api\RoleController@update');
+    //     Route::delete('delete','Api\RoleController@delete');
+    //     Route::post('{ID}/menu/create','Api\RoleController@menuInsert');
+    //     Route::post('{ID}/menu/update','Api\RoleController@menuUpdate');
+    //     Route::delete('{ID}/menu/delete','Api\RoleController@deleteMenu');
+    // });
 
-    Route::prefix('cloud')->group(function(){
-        Route::get('index','Api\CloudSettingController@index');
-        Route::post('update','Api\CloudSettingController@update');
-    });
+    // Route::prefix('cloud')->group(function(){
+    //     Route::get('index','Api\CloudSettingController@index');
+    //     Route::post('update','Api\CloudSettingController@update');
+    // });
 
     // InformationSystem
     Route::prefix('student')->group(function(){
@@ -104,13 +104,13 @@ Route::prefix('v1')->group(function(){
         Route::delete('deleteStudy','Api\InformationSystem\EmployeeController@deleteStudy');
     });
 
-    Route::prefix('schedule')->group(function(){
-        Route::get('','Api\InformationSystem\ScheduleController@index');
-        Route::get('{ID}','Api\InformationSystem\ScheduleController@single');
-        Route::post('create','Api\InformationSystem\ScheduleController@create');
-        Route::post('update','Api\InformationSystem\ScheduleController@update');
-        Route::delete('delete','Api\InformationSystem\ScheduleController@delete');
-    });
+    // Route::prefix('schedule')->group(function(){
+    //     Route::get('','Api\InformationSystem\ScheduleController@index');
+    //     Route::get('{ID}','Api\InformationSystem\ScheduleController@single');
+    //     Route::post('create','Api\InformationSystem\ScheduleController@create');
+    //     Route::post('update','Api\InformationSystem\ScheduleController@update');
+    //     Route::delete('delete','Api\InformationSystem\ScheduleController@delete');
+    // });
 
     Route::prefix('class_room')->group(function(){
         Route::get('','Api\InformationSystem\ClassroomController@index');
@@ -209,11 +209,11 @@ Route::prefix('v1')->group(function(){
         Route::delete('delete','Api\Elearning\AnswerController@delete');
     });
 
-    Route::prefix('virtual_classroom')->group(function(){
-        Route::get('{teacher_id}','Api\Elearning\VirtualClassroomController@index');
-        Route::get('get/{ID}','Api\Elearning\VirtualClassroomController@single');
-        Route::post('create','Api\Elearning\VirtualClassroomController@create');
-        Route::post('update','Api\Elearning\VirtualClassroomController@update');
-        Route::delete('delete','Api\Elearning\VirtualClassroomController@delete');
-    });
+    // Route::prefix('virtual_classroom')->group(function(){
+    //     Route::get('{teacher_id}','Api\Elearning\VirtualClassroomController@index');
+    //     Route::get('get/{ID}','Api\Elearning\VirtualClassroomController@single');
+    //     Route::post('create','Api\Elearning\VirtualClassroomController@create');
+    //     Route::post('update','Api\Elearning\VirtualClassroomController@update');
+    //     Route::delete('delete','Api\Elearning\VirtualClassroomController@delete');
+    // });
 });

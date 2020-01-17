@@ -110,9 +110,7 @@
                                 
                                 <div class="form-group">
                                     <center>
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
+                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </center>
                                 </div>
                             
@@ -122,6 +120,8 @@
                                         <i class="fa fa-sign-in"></i> Login
                                     </button>
                                     <center>
+                                        <p></p>
+                                        <a href="{{route('password.request')}}">Lupa Password</a>
                                         <p></p>
                                         Belum punya akun ? Silahkan Daftar <a href="{{ url('/register') }}">disini</a>
                                     </center>
