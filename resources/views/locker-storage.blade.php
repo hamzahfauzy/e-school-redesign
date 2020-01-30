@@ -106,7 +106,8 @@ async function loadFile()
         })
 
         data.files.forEach(val => {
-            var visibility = val.visibility ? 'Set Private' : 'Set Public'
+            var visibility = val.visibility == null || val.visibility == 0 ? 0 : 1;
+            visibility = val.visibility ? 'Set Private' : 'Set Public'
             $('.file-table').append(`<tr>
                 <td>${number++}</td>
                 <td>
