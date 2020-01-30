@@ -40,7 +40,12 @@ class FileController extends Controller
             {
                 $user = User::find($request->user_id);
 
-                $destinationPath = public_path()."/uploads/schools/".$user->school[0]->id.'/'.$request->user_id;
+                if($user->isRole('admin_sistem_informasi') && $user->customer->school)
+                    $school_id = $user->customer->school->id;
+                elseif($user->school && count($user->school) > 0)
+                    $school_id = $user->school[0]->id;
+
+                $destinationPath = public_path()."/uploads/schools/".$school_id.'/'.$request->user_id;
                 if(!file_exists($destinationPath))
                     mkdir($destinationPath);
 
@@ -91,7 +96,8 @@ class FileController extends Controller
             'visibility' => $visibility
         ]);
         return response()->json([
-            'success' => 1
+            'success' => 1,
+            'file'    => $file
         ],200);
     }
 }
