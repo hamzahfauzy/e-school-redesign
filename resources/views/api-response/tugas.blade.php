@@ -12,7 +12,7 @@
                                 <div class="modal-body">
                                     <div style="padding: 15px;border:1px solid #eaeaea;">
                                         <small>{{$post->comment($user->id)->created_at->format('j F Y H:i:s')}}</small>
-                                        <p>{{nl2br($post->comment($user->id)->contents)}}</p>
+                                        <p>{!!nl2br($post->comment($user->id)->contents)!!}</p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

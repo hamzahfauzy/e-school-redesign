@@ -25,7 +25,7 @@
             @endif
             <small>{{$chat->updated_at->format('j F Y H:i:s')}}</small>
         </div>
-        <p>{{nl2br($chat->contents)}}</p>
+        <p>{!!nl2br($chat->contents)!!}</p>
     </div>
 </div>
 @endforeach
