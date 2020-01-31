@@ -105,7 +105,7 @@
                                     <div style="padding: 15px;border:1px solid #eaeaea;">
 
                                         <small>{{$post->comment($user->id)->created_at->format('j F Y H:i:s')}}</small>
-                                        <p>{{$post->comment($user->id)->contents}}</p>
+                                        <p>{{nl2br($post->comment($user->id)->contents)}}</p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -144,7 +144,7 @@
                                 <small>{{$comment->updated_at->format('j F Y H:i:s')}}</small>
                             </div>
 
-                            <p>{{$comment->contents}}</p>
+                            <p>{{nl2br($comment->contents)}}</p>
                         </div>
                         @endforeach
                     </div>
@@ -245,7 +245,7 @@
                                     <div style="padding: 15px;border:1px solid #eaeaea;">
                                         <a href="#"><b>{{$comment->user->name}}</b></a><br>
                                         <small>{{$comment->created_at->format('j F Y H:i:s')}}</small>
-                                        <p>{{$comment->contents}}</p>
+                                        <p>{{nl2br($comment->contents)}}</p>
                                     </div>
                                     @endforeach
                                 </div>
@@ -284,7 +284,7 @@
                                  <small>{{$comment->updated_at->format('j F Y H:i:s')}}</small>
                             </div>
 
-                            <p>{{$comment->contents}}</p>
+                            <p>{{nl2br($comment->contents)}}</p>
                         </div>
                         @endforeach
                     </div>

@@ -14,7 +14,7 @@
                                     <small>{{$comment->updated_at->format('j F Y H:i:s')}}</small>
                                 </div>
 
-                                <p>{{$comment->contents}}</p>
+                                <p>{{nl2br($comment->contents)}}</p>
                             </div>
                         </div>
                         @endforeach

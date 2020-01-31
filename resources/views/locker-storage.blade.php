@@ -52,6 +52,7 @@
                       <strong>{{ $message }}</strong>
                   </div>
                 @endif
+                <div class="upload-message"></div>
                 <div class="table-responsive">
                     <table class="table table-striped file-table">
                         <thead>
@@ -141,13 +142,46 @@ async function uploadAction()
     })
     formData.append('parent_id', folder_id.value)
     formData.append('user_id', {{auth()->user()->id}})
-    let response = await fetch(window.config.getApiUrl()+'/files/upload',{
-        'method':'POST',
-        'body': formData
-    })
-    let data = await response.json()
-    if(data.success)
-        await loadFile()
+
+    let xhr = new XMLHttpRequest;
+    xhr.open('POST',window.config.getApiUrl()+'/files/upload')
+
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == 4)
+        {
+            var data = JSON.parse(xhr.responseText)
+            if(data.success)
+                loadFile()
+        }
+    }
+
+    xhr.upload.onprogress = p => {
+        var uploadMessage = (msg, status) => {
+                return `<div class="alert alert-${status} alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button> 
+                      <strong>${msg}</strong>
+                </div>`
+        }
+        var progress = Math.round((p.loaded / p.total) * 100);
+        $('.upload-message').html(uploadMessage('Uploading '+progress+'%','warning'))
+        if(progress == 100)
+        {
+            $('.upload-message').html(uploadMessage('File Berhasil di Upload','success'))
+            setTimeout(()=>{
+                $('.upload-message').html('')
+            },5000)
+        }
+    }
+    xhr.send(formData)
+
+    // let response = await fetch(window.config.getApiUrl()+'/files/upload',{
+    //     'method':'POST',
+    //     'body': formData
+    // })
+
+    // let data = await response.json()
+    // if(data.success)
+    //     await loadFile()
     return false
 }
 
