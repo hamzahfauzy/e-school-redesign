@@ -2,6 +2,8 @@
 @foreach($chats as $chat)
 <div class="chat-items chat-id-{{$chat->id}}" onclick="setActiveChat('{{$chat->id}}')">
     <div class="author-picture">
+        <img src="{{asset('assets/default.png')}}" width="100%">
+        <?php /*
         @if($chat->user_id == $user_id)
             @if($chat->userto->picture)
             <img src="{{asset('uploads/schools/'.$chat->userto->school[0]->id.'/'.$chat->userto->id.'/'.$chat->userto->picture)}}" width="100%">
@@ -15,6 +17,7 @@
             <img src="{{asset('assets/default.png')}}" width="100%">
             @endif
         @endif
+        */
     </div>
     <div class="comment-content chat-list">
         <div class="author-name">
