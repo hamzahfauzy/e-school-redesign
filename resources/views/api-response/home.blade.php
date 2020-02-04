@@ -149,7 +149,7 @@
                                 <small>{{$comment->updated_at->format('j F Y H:i:s')}}</small>
                             </div>
 
-                            <p>{!!nlbr($comment->contents)!!}</p>
+                            <p>{!!nl2br($comment->contents)!!}</p>
                         </div>
                         @endforeach
                     </div>
