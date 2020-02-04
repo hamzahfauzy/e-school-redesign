@@ -31,6 +31,39 @@
                 		<button class="btn z-techno-btn z-techno-primary">Bagikan</button>
                 	</form>
                 </div>
+                @elseif(auth()->user()->isRole('guru'))
+                <div class="content-wrapper">
+                    <h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
+                    <form method="post" class="form-posts" enctype="multipart/form-data" onsubmit="savePost(this); return false">
+                        <div class="form-group posts-group">
+                            <textarea name="contents" class="form-control z-techno-el" rows="5" style="resize: none;" placeholder="Katakan sesuatu tentang hari ini.."></textarea>
+                            <!-- <div class="z-techno-btn-group">
+                                <button type="button" id="fileUploadPostBtn" onclick="fileUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">File</button>
+                                <button type="button" id="gambarUploadPostBtn" onclick="gambarUploadPost.click()" class="btn z-techno-btn z-techno-btn-float">Gambar</button>
+                            </div> -->
+                            <select name="post_as" class="form-control z-techno-el select2" onchange="postType.style.display = 'none'; if(this.value != 'Catatan Pribadi' && this.value != 'Semua Orang' && this.value != '') postType.style.display = 'block'" required="">
+                                <!-- <option value="">Bagikan Ke / Sebagai</option> -->
+                                <option value="Semua Orang">Semua Orang</option>
+                                <option value="Catatan Pribadi">Catatan Pribadi</option>
+                                <option value="Pengumuman">Pengumuman</option>
+                                <option value="Tugas">Tugas</option>
+                                <option value="Materi">Materi</option>
+                            </select>
+                            <select class="form-control z-techno-el select2" id="postType" name="post_as_id" style="display: none;">
+                                <?php $ids = [] ?>
+                                @foreach(auth()->user()->classrooms as $classroom)
+                                <?php if(in_array($classroom->id, $ids)) continue; $ids[] = $classroom->id; ?>
+                                <option value="{{$classroom->id}}">{{$classroom->name}}</option>
+                                @endforeach
+                            </select>
+                            <div style="display: none">
+                                <input type="file" name="file" id="fileUploadPost" onchange="fileUploadPostBtn.innerHTML = '1 File Terpilih'">
+                                <input type="file" name="gambar" id="gambarUploadPost" onchange="gambarUploadPostBtn.innerHTML = '1 Gambar Terpilih'">
+                            </div>
+                        </div>
+                        <button class="btn z-techno-btn z-techno-primary">Bagikan</button>
+                    </form>
+                </div>
                 @else
                 <div class="content-wrapper">
                 	<h2 style="font-size: 16px;">Selamat Datang di e-School</h2>
@@ -46,15 +79,6 @@
                 				<option value="Semua Orang">Semua Orang</option>
                                 <option value="Catatan Pribadi">Catatan Pribadi</option>
                 				<option value="Pengumuman">Pengumuman</option>
-                                <option value="Tugas">Tugas</option>
-                                <option value="Materi">Materi</option>
-                			</select>
-                			<select class="form-control z-techno-el select2" id="postType" name="post_as_id" style="display: none;">
-                                <?php $ids = [] ?>
-                				@foreach(auth()->user()->classrooms as $classroom)
-                                <?php if(in_array($classroom->id, $ids)) continue; $ids[] = $classroom->id; ?>
-                                <option value="{{$classroom->id}}">{{$classroom->name}}</option>
-                                @endforeach
                 			</select>
                 			<div style="display: none">
                 				<input type="file" name="file" id="fileUploadPost" onchange="fileUploadPostBtn.innerHTML = '1 File Terpilih'">

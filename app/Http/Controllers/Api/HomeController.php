@@ -18,7 +18,7 @@ class HomeController extends Controller
 
     public function retrievePosts(User $user)
     {
-        if(!$user->isRole('admin_sistem_informasi') && !$user->isRole('admin'))
+        if(!$user->isRole('admin'))
         {
             $response = new StreamedResponse(function() use ($user){
                 while(true) {
@@ -62,6 +62,13 @@ class HomeController extends Controller
                         }
 
                         $post = Post::whereIn('post_as',['Catatan Pribadi','Pengumuman','Tugas','Materi'])->where('user_id',$user->id)->get();
+                        foreach($post as $p)
+                            $posts[] = $p->id;
+                    }
+
+                    if($user->isRole('admin_sistem_informasi'))
+                    {
+                        $post = Post::whereIn('post_as',['Pengumuman','Semua Orang'])->where('school_id',$user->customer->school->id)->get();
                         foreach($post as $p)
                             $posts[] = $p->id;
                     }
@@ -178,7 +185,7 @@ class HomeController extends Controller
         $posts = [];
         $user = User::find($request->user_id);
         $school_id = 0;
-        if($user->isRole('admin_sistem_informasi') || $user->isRole('admin'))
+        if($user->isRole('admin'))
         {
             return response()->json([
                 'id' => 0,
@@ -230,6 +237,14 @@ class HomeController extends Controller
                     $posts[] = $p->id;
             }
 
+            if($user->isRole('admin_sistem_informasi'))
+            {
+                $post = Post::whereIn('post_as',['Pengumuman','Semua Orang'])->where('school_id',$user->customer->school->id)->get();
+                foreach($post as $p)
+                    $posts[] = $p->id;
+            }
+
+
             if($user->school && count($user->school) > 0)
             {
     	        $post = Post::where('post_as','Semua Orang')->where('school_id',$user->school[0]->id)->get();
@@ -237,10 +252,9 @@ class HomeController extends Controller
     	            $posts[] = $p->id;
             }
 
+
             if(isset($_GET['filter']))
-            {
                 $posts = Post::whereIn('id',$posts)->where('post_as',$_GET['filter'])->orderby('created_at','desc')->paginate(10);
-            }
             else
                 $posts = Post::whereIn('id',$posts)->orderby('created_at','desc')->paginate(10);
             // $last = Post::whereIn('id',$posts)->orderby('created_at','desc')->first();

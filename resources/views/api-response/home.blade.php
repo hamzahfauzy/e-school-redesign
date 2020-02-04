@@ -162,7 +162,8 @@
             </div>
             <br>
             @endif
-            @elseif($user->isRole('guru'))
+            <?php /* @elseif($user->isRole('guru')) */ ?>
+            @else
             @if($post->exam())
             <?php $exam=$post->exam() ?>
             <div class="content-wrapper post-id-{{$post->id}}">
