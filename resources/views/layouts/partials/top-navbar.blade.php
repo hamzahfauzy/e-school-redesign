@@ -1,7 +1,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm z-techno-navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{asset('assets/default.png')}}" width="50px" style="margin-top: -3px"> <span style="font-weight: bold;">&nbsp;&nbsp; E-School</span>
+                    <img src="{{asset('assets/default.png')}}" width="50px" style="margin-top: -3px"> <span class="app-name" style="font-weight: bold;">&nbsp;&nbsp; E-School</span>
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

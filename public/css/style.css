@@ -371,6 +371,10 @@ main {
   background: #555; 
 }
 
+.app-name {
+	display: inline-block;
+}
+
 @media only screen and (max-width: 991px) {
 	.chat-sidebar {
 		display: none;
@@ -384,5 +388,10 @@ main {
 
 	.content-container {
 		margin-left: 0px;
+	}
+}
+@media only screen and (max-width: 425px) {
+	.app-name {
+		display: none;
 	}
 }
